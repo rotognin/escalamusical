@@ -53,3 +53,4 @@ Cadastro de integrantes da Escala - escalaintegrantes_tb
 *** Atribuição das funções a cada integrante que estiver na escala do grupo
 *** Mural de recado do Administrador aos usuários do sistema
 *** Criar um campo de apelido para os integrantes (talvez...)
+*** Criar um cadastro de usuários com permissões: poderá criar grupos, alterar as escalas, escolher músicas, etc...

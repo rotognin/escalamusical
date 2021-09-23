@@ -6,7 +6,7 @@
     - Usuários - OK
     - Integrantes - OK
     - Músicas - OK
-    - Grupos
+    - Grupos - OK
     - Escala-Integrantes
     - Escala-músicas
 
