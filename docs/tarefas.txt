@@ -22,7 +22,7 @@
     - Tela principal (visualização das Escalas criadas, acesso à lista de músicas - público geral)
     - Tela de administração - Botões para as Listas, dashboard, resumo das movimentações
     - Lista de Integrantes - OK
-    - Cadastro de Integrante
+    - Cadastro de Integrante - OK
     - Lista de Músicas
     - Cadastro de Música
     - Lista de Grupos

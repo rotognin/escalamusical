@@ -24,6 +24,16 @@ class Musica
         );
     }
 
+    public static function validar(array $musica)
+    {
+        if ($musica['musNome'] == ''){
+            $_SESSION['mensagem'] = 'O nome da música deve ser preenchido.';
+            return false;
+        }
+
+        return true;
+    }
+
     /**
      * Gravação do registro da música
      */
@@ -93,5 +103,10 @@ class Musica
 
         $conn->execute();
         return $conn->fetchAll();
+    }
+
+    public static function getStatus(int $musAtivo)
+    {
+        return self::$status[$musAtivo];
     }
 }

@@ -57,6 +57,11 @@ class Controller
         self::viewAction('integrantes');
     }
 
+    public static function musicasAction()
+    {
+        self::viewAction('musicas');
+    }
+
     public static function homeAction()
     {
         header('Location: ' . DIR['home']);

@@ -1,5 +1,9 @@
 <?php
 
+/**
+ * Cadastro de integrantes
+ */
+
 namespace App\View;
 
 use App\Model as Model;
@@ -57,7 +61,7 @@ $_SESSION['mensagem'] = '';
                 <!-- Contato -->
                 <label for="intContato">Contato:</label>
                 <input type="text" id="intContato" 
-                       name="intContato" value="<?php echo $integrante['intContato']; ?>" required 
+                       name="intContato" value="<?php echo $integrante['intContato']; ?>" 
                        style="text-transform:uppercase" size="100">
                 <br><br>
                 <!-- Situação -->
