@@ -4,7 +4,7 @@ namespace App\Model;
 
 class Integrante
 {
-    private $status = array(
+    private static $status = array(
         0 => 'Inativo',
         1 => 'Ativo'
     );
@@ -18,7 +18,7 @@ class Integrante
             'intID'      => 0,
             'intNome'    => '',
             'intContato' => '',
-            'intAtivo'   => 0
+            'intAtivo'   => 1      // Padrão Ativo
         );
     }
 
@@ -27,7 +27,7 @@ class Integrante
      */
     public static function validar(array $integrante)
     {
-        if ($atividade['intNome'] == ''){
+        if ($integrante['intNome'] == ''){
             $_SESSION['mensagem'] = 'O nome do integrante deve ser preenchido.';
             return false;
         }
@@ -38,11 +38,11 @@ class Integrante
     /**
      * Carrega os dados de um integrante
      */
-    public static function carregarAtividade(int $intID)
+    public static function carregar(int $intID)
     {
         $sql = 'SELECT * FROM integrantes_tb WHERE intID = :intID';
         $conn = Conexao::getConexao()->prepare($sql);
-        $conn->bindValue('intID', $atvID, \PDO::PARAM_INT);
+        $conn->bindValue('intID', $intID, \PDO::PARAM_INT);
         $conn->execute();
         $result = $conn->fetchAll();
 
@@ -51,6 +51,27 @@ class Integrante
         }
 
         return $result[0];
+    }
+
+    /**
+     * Carregar a lista de todos os integrantes
+     */
+    public static function listar(bool $bTodos = true, int $intAtivo = 1)
+    {
+        $sql = 'SELECT * FROM integrantes_tb ';
+
+        if (!$bTodos){
+            $sql .= 'WHERE intAtivo = :intAtivo';
+        }
+
+        $conn = Conexao::getConexao()->prepare($sql);
+
+        if (!$bTodos){
+            $conn->bindValue('intAtivo', $intAtivo, \PDO::PARAM_INT);
+        }
+
+        $conn->execute();
+        return $conn->fetchAll();
     }
 
     public static function gravar(array $integrante)
@@ -77,7 +98,8 @@ class Integrante
         return $conn->execute(array(
             'intNome'    => strtoupper($integrante['intNome']),
             'intContato' => strtoupper($integrante['intContato']),
-            'intAtivo'   => $integrante['intAtivo']
+            'intAtivo'   => $integrante['intAtivo'],
+            'intID'      => $integrante['intID']
         ));
     }
 

@@ -5,7 +5,7 @@ namespace App\Model;
 class Grupo
 {
 
-    private $status = array(
+    private static $status = array(
         0 => 'Inativo',
         1 => 'Ativo', 
         2 => 'Arquivado',
@@ -20,7 +20,7 @@ class Grupo
             'gruObservacoes' => '',
             'gruData'        => '',
             'gruHora'        => '',
-            'gruStatus'      => 0
+            'gruStatus'      => 1
         );
     }
 

@@ -52,9 +52,9 @@ class Controller
         self::viewAction('menu');
     }
 
-    public static function atividadesAction()
+    public static function integrantesAction()
     {
-        self::viewAction('atividades');
+        self::viewAction('integrantes');
     }
 
     public static function homeAction()

@@ -12,7 +12,7 @@
 
 - Criação dos Controles
     - Usuários
-    - Integrantes
+    - Integrantes - OK
     - Músicas
     - Grupos
     - Escala-Integrantes
@@ -21,7 +21,7 @@
 - Criação das Visões
     - Tela principal (visualização das Escalas criadas, acesso à lista de músicas - público geral)
     - Tela de administração - Botões para as Listas, dashboard, resumo das movimentações
-    - Lista de Integrantes
+    - Lista de Integrantes - OK
     - Cadastro de Integrante
     - Lista de Músicas
     - Cadastro de Música

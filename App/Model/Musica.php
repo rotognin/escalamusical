@@ -4,7 +4,7 @@ namespace App\Model;
 
 class Musica
 {
-    private $status = array(
+    private static $status = array(
         0 => 'Inativo',
         1 => 'Ativo'
     );
@@ -19,7 +19,7 @@ class Musica
             'musNome'      => '',
             'musArtista'   => '',
             'musLink'      => '',
-            'musAtivo'     => 0,
+            'musAtivo'     => 1,
             'musDescricao' => ''
         );
     }
