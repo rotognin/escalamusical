@@ -1,0 +1,30 @@
+- Criação das tabelas
+    - Descrição das tabelas - OK
+    - Geração do script do Banco - OK
+
+- Criação dos Modelos
+    - Usuários - OK
+    - Integrantes - OK
+    - Músicas - OK
+    - Grupos
+    - Escala-Integrantes
+    - Escala-músicas
+
+- Criação dos Controles
+    - Usuários
+    - Integrantes
+    - Músicas
+    - Grupos
+    - Escala-Integrantes
+    - Escala-músicas
+
+- Criação das Visões
+    - Tela principal (visualização das Escalas criadas, acesso à lista de músicas - público geral)
+    - Tela de administração (Listas de Integrantes, músicas, grupos e escalas criadas)
+    - Cadastro de Integrante
+    - Cadastro de Música
+    - Cadastro de Grupos
+    - Montagem de Escala: seleção de integrantes e músicas para o Grupo
+
+- Gerais:
+    - Campo na tabela de músicas para definir se a mesma estará aberta ao público geral ou não

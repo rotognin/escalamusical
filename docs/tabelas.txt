@@ -1,0 +1,55 @@
+Banco: equipemusical_db
+
+Usuários - usuarios_tb - Usuários de acesso ao sistema
+    - usuID
+    - usuNome
+    - usuLogin
+    - usuSenha - sha1
+    - usuSituacao - 0: Trocar a senha, 1 - Liberado, 2 - Bloqueado, 3 - Inativo
+
+Integrantes da Equipe - integrantes_tb - Integrantes do grupo musical
+    - intID
+    - intNome
+    - intContato
+    - intAtivo - 1 - Ativo, 0 - Inativo
+
+Cadastro das Músicas - musicas_tb
+    - musID
+    - musNome
+    - musArtista
+    - musLink
+    - musAtivo - 1 - Ativo, 0 - Inativo
+    - musDescricao - Observações sobre a música
+
+Cadastro de Grupos - grupos_tb
+    - gruID
+    - gruDescricao
+    - gruObservacoes
+    - gruData
+    - gruHora
+    - gruStatus - 1 - Ativo, 0 - Inativo, 2 - Arquivado, 3 - Cancelado
+
+Cadastro de músicas da Escala - escalamusicas_tb
+    - escMusID
+    - escMusIDGrupo
+    - escMusIDMusica
+    - escMusObservacao
+    - escMusAtivo - 1 - Ativo, 0 - Inativo
+
+Cadastro de integrantes da Escala - escalaintegrantes_tb
+    - escIntID
+    - escIntIDGrupo
+    - escIntIDIntegrante
+    - escIntObservacao
+    - escIntAtivo - 1 - Ativo, 0 - Inativo
+
+
+
+
+--- Futuras melhorias
+
+*** Tabela de encontros do grupo (ensaios, conversas, reuniões)
+*** Tabela de funções (violão base, guitarra solo, vocal, backvocal, P.A., regente, auxiliar datashow, etc)
+*** Atribuição das funções a cada integrante que estiver na escala do grupo
+*** Mural de recado do Administrador aos usuários do sistema
+*** Criar um campo de apelido para os integrantes (talvez...)
