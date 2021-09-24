@@ -14,7 +14,7 @@
     - Usuários
     - Integrantes - OK
     - Músicas - OK
-    - Grupos
+    - Grupos - OK
     - Escala-Integrantes
     - Escala-músicas
 
@@ -26,7 +26,7 @@
     - Lista de Músicas - OK
     - Cadastro de Música - OK
     - Lista de Grupos - OK
-    - Cadastro de Grupos
+    - Cadastro de Grupos -OK
     - Lista das Escalas
     - Montagem de Escala: seleção de integrantes e músicas para o Grupo
 

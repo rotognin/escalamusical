@@ -24,6 +24,16 @@ class Grupo
         );
     }
 
+    public static function validar(array $grupo)
+    {
+        if ($grupo['gruDescricao'] == ''){
+            $_SESSION['mensagem'] = 'A Descrição do grupo deve ser informada';
+            return false;
+        }
+
+        return true;
+    }
+
     public static function gravar(array $grupo)
     {
         $sql = 'INSERT INTO grupos_tb (' .

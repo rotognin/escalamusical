@@ -49,43 +49,48 @@ $_SESSION['mensagem'] = '';
             <form method="post" 
                   class="w3-container" 
                   action="principal.php?control=grupo&action=<?php echo verdade($novo, 'gravarGrupo', 'atualizarGrupo'); ?>">
-                <label for="musID">ID:</label>
-                <input type="text" id="musID" name="musID" value="<?php echo $musica['musID']; ?>" readonly>
-                <br><br>
-                <!-- Nome da Música -->
-                <label for="musNome">Nome:</label>
-                <input type="text" id="musNome" 
-                       name="musNome" value="<?php echo $musica['musNome']; ?>" autofocus required 
-                       size="50" maxlength="100">
-                <br><br>
-                <!-- Artista -->
-                <label for="musArtista">Artista:</label>
-                <input type="text" id="musArtista" 
-                       name="musArtista" value="<?php echo $musica['musArtista']; ?>"
-                       size="50">
+                <!-- ID -->
+                <label for="gruID">ID:</label>
+                <input type="text" id="gruID" name="gruID" value="<?php echo $grupo['gruID']; ?>" readonly>
                 <br><br>
                 <!-- Descrição -->
-                <label for="musDescricao">Descrição:</label>
-                <input type="text" id="musDescricao" 
-                       name="musDescricao" value="<?php echo $musica['musDescricao']; ?>"
-                       size="100">
+                <label for="gruDescricao">Descrição:</label>
+                <input type="text" id="gruDescricao" 
+                       name="gruDescricao" value="<?php echo $grupo['gruDescricao']; ?>" autofocus required 
+                       size="100" maxlength="100">
                 <br><br>
-                <!-- Link -->
-                <label for="musLink">Link:</label>
-                <input type="text" id="musLink" 
-                       name="musLink" value="<?php echo $musica['musLink']; ?>"
+                <!-- Data e Hora-->
+                <label for="gruData">Data:</label>
+                <input type="date" id="gruData" 
+                       name="gruData" value="<?php echo $grupo['gruData']; ?>">
+                <label for="gruHora">Hora:</label>
+                <input type="time" id="gruHora" 
+                       name="gruHora" value="<?php echo $grupo['gruHora']; ?>">
+                <br><br>
+                <!-- Observações -->
+                <label for="gruObservacoes">Observações:</label>
+                <input type="text" id="gruObservacoes" 
+                       name="gruObservacoes" value="<?php echo $grupo['gruObservacoes']; ?>"
                        size="100">
                 <br><br>
                 <!-- Situação -->
                 <p>Situação:
                     <br>
-                    <input type="radio" id="musAtivo1" name="musAtivo" value="1"
-                           <?php if ($musica['musAtivo'] == 1) { echo ' checked '; }?>>
-                    <label for="musAtivo1">Ativo</label>
+                    <input type="radio" id="gruStatus1" name="gruStatus" value="1"
+                           <?php if ($grupo['gruStatus'] == 1) { echo ' checked '; }?>>
+                    <label for="gruStatus1">Ativo</label>
                     <br>
-                    <input type="radio" id="musAtivo0" name="musAtivo" value="0"
-                           <?php if ($musica['musAtivo'] == 0) { echo ' checked '; }?>>
-                    <label for="musAtivo0">Inativo</label>
+                    <input type="radio" id="gruStatus0" name="gruStatus" value="0"
+                           <?php if ($grupo['gruStatus'] == 0) { echo ' checked '; }?>>
+                    <label for="gruStatus0">Inativo</label>
+                    <br>
+                    <input type="radio" id="gruStatus2" name="gruStatus" value="2"
+                           <?php if ($grupo['gruStatus'] == 2) { echo ' checked '; }?>>
+                    <label for="gruStatus2">Arquivado</label>
+                    <br>
+                    <input type="radio" id="gruStatus3" name="gruStatus" value="3"
+                           <?php if ($grupo['gruStatus'] == 3) { echo ' checked '; }?>>
+                    <label for="gruStatus3">Cancelado</label>
                 </p>
                 <input type="submit" value="Gravar" class="w3-button w3-blue">
             </form>
