@@ -55,8 +55,8 @@ class Musica
     public static function atualizar(array $musica)
     {
         $sql = 'UPDATE musicas_tb SET ' .
-                'musNome = :musNome, musArtista = :musArtista ' . 
-                'musLink = :musLink, musAtivo = :musAtivo ' . 
+                'musNome = :musNome, musArtista = :musArtista, ' . 
+                'musLink = :musLink, musAtivo = :musAtivo, ' . 
                 'musDescricao = :musDescricao ' .
                 'WHERE musID = :musID';
         $conn = Conexao::getConexao()->prepare($sql);

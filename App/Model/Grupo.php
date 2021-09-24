@@ -42,8 +42,8 @@ class Grupo
     public static function atualizar(array $grupo)
     {
         $sql = 'UPDATE grupos_tb SET ' .
-                'gruDescricao = :gruDescricao, gruObservacoes = :gruObservacoes ' . 
-                'gruData = :gruData, gruHora = :gruHora ' . 
+                'gruDescricao = :gruDescricao, gruObservacoes = :gruObservacoes, ' . 
+                'gruData = :gruData, gruHora = :gruHora, ' . 
                 'gruStatus = :gruStatus ' .
                 'WHERE gruID = :gruID';
         $conn = Conexao::getConexao()->prepare($sql);
@@ -76,7 +76,31 @@ class Grupo
         return $result[0];
     }
 
+    /**
+     * Carregar a lista de todos os grupos
+     */
+    public static function listar(bool $bTodos = true, int $gruAtivo = 1)
+    {
+        $sql = 'SELECT * FROM grupos_tb ';
 
+        if (!$bTodos){
+            $sql .= 'WHERE gruAtivo = :gruAtivo';
+        }
+
+        $conn = Conexao::getConexao()->prepare($sql);
+
+        if (!$bTodos){
+            $conn->bindValue('gruAtivo', $gruAtivo, \PDO::PARAM_INT);
+        }
+
+        $conn->execute();
+        return $conn->fetchAll();
+    }
+
+    public static function getStatus(int $gruAtivo)
+    {
+        return self::$status[$gruAtivo];
+    }
 
 
 }

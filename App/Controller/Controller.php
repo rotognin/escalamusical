@@ -62,6 +62,11 @@ class Controller
         self::viewAction('musicas');
     }
 
+    public static function gruposAction()
+    {
+        self::viewAction('grupos');
+    }
+
     public static function homeAction()
     {
         header('Location: ' . DIR['home']);

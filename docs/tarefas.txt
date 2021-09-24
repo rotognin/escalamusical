@@ -13,7 +13,7 @@
 - Criação dos Controles
     - Usuários
     - Integrantes - OK
-    - Músicas
+    - Músicas - OK
     - Grupos
     - Escala-Integrantes
     - Escala-músicas
@@ -23,9 +23,9 @@
     - Tela de administração - Botões para as Listas, dashboard, resumo das movimentações
     - Lista de Integrantes - OK
     - Cadastro de Integrante - OK
-    - Lista de Músicas
-    - Cadastro de Música
-    - Lista de Grupos
+    - Lista de Músicas - OK
+    - Cadastro de Música - OK
+    - Lista de Grupos - OK
     - Cadastro de Grupos
     - Lista das Escalas
     - Montagem de Escala: seleção de integrantes e músicas para o Grupo
