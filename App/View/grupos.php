@@ -32,7 +32,7 @@ $_SESSION['mensagem'] = '';
     </div>
     <div class="w3-container w3-card-4 w3-padding">
         <?php include_once 'lib/mensagem.php'; ?>
-        <h3>Gruposs:</h3>
+        <h3>Grupos:</h3>
         <table class='w3-table w3-striped w3-bordered'>
             <tr>
                 <th>ID</th>

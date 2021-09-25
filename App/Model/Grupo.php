@@ -87,29 +87,31 @@ class Grupo
     }
 
     /**
-     * Carregar a lista de todos os grupos
+     * Carregar a lista de todos os grupos, ordem reversa de criação
      */
-    public static function listar(bool $bTodos = true, int $gruAtivo = 1)
+    public static function listar(bool $bTodos = true, int $gruStatus = 1)
     {
         $sql = 'SELECT * FROM grupos_tb ';
 
         if (!$bTodos){
-            $sql .= 'WHERE gruAtivo = :gruAtivo';
+            $sql .= 'WHERE gruStatus = :gruStatus ';
         }
+
+        $sql .= ' ORDER BY gruID DESC';
 
         $conn = Conexao::getConexao()->prepare($sql);
 
         if (!$bTodos){
-            $conn->bindValue('gruAtivo', $gruAtivo, \PDO::PARAM_INT);
+            $conn->bindValue('gruStatus', $gruStatus, \PDO::PARAM_INT);
         }
 
         $conn->execute();
         return $conn->fetchAll();
     }
 
-    public static function getStatus(int $gruAtivo)
+    public static function getStatus(int $gruStatus)
     {
-        return self::$status[$gruAtivo];
+        return self::$status[$gruStatus];
     }
 
 

@@ -10,11 +10,6 @@ namespace App\Model;
 
 class Escala
 {
-    private static $status = array(
-        0 => 'Inativo',
-        1 => 'Ativo'
-    );
-
     /**
      * Retorna um array com os campos do cadastro de Músicas da Escala
      */
@@ -76,7 +71,6 @@ class Escala
         ));
     }
 
-
     /**
      * Gravação do registro da música para a escala
      */
@@ -110,28 +104,14 @@ class Escala
         ));
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     /**
-     * Carregar o registro de uma música
+     * Carregar todas as músicas que estiverem ligadas ao grupo
      */
-    public static function carregar(int $musID)
+    public static function carregarMusicas(int $escMusIDGrupo)
     {
-        $sql = 'SELECT * FROM musicas_tb WHERE musID = :musID';
+        $sql = 'SELECT * FROM escalamusicas_tb WHERE escMusIDGrupo = :escMusIDGrupo';
         $conn = Conexao::getConexao()->prepare($sql);
-        $conn->bindValue('musID', $musID, \PDO::PARAM_INT);
+        $conn->bindValue('escMusIDGrupo', $escMusIDGrupo, \PDO::PARAM_INT);
         $conn->execute();
         $result = $conn->fetchAll();
 
@@ -139,28 +119,30 @@ class Escala
     }
 
     /**
-     * Listagem de todas as músicas (padrão: todas)
+     * Retornar a quantidade de músicas escaladas para um grupo
      */
-    public static function listar(bool $bTodas = true, int $musAtivo = 1)
+    public static function quantidadeMusicas(int $escMusIDGrupo)
     {
-        $sql = 'SELECT * FROM musicas_tb ';
-
-        if (!$bTodas){
-            $sql .= 'WHERE musAtivo = :musAtivo';
-        }
-
+        $sql = 'SELECT COUNT(*) FROM escalamusicas_tb WHERE escMusIDGrupo = :escMusIDGrupo';
         $conn = Conexao::getConexao()->prepare($sql);
-
-        if (!$bTodas){
-            $conn->bindValue('musAtivo', $musAtivo, \PDO::PARAM_INT);
-        }
-
+        $conn->bindValue('escMusIDGrupo', $escMusIDGrupo, \PDO::PARAM_INT);
         $conn->execute();
-        return $conn->fetchAll();
+        $result = $conn->fetchAll();
+
+        return $result[0][0];
     }
 
-    public static function getStatus(int $musAtivo)
+    /**
+     * Retornar a quantidade de integrantes escalados para um grupo
+     */
+    public static function quantidadeIntegrantes(int $escIntIDGrupo)
     {
-        return self::$status[$musAtivo];
+        $sql = 'SELECT COUNT(*) FROM escalaintegrantes_tb WHERE escIntIDGrupo = :escIntIDGrupo';
+        $conn = Conexao::getConexao()->prepare($sql);
+        $conn->bindValue('escIntIDGrupo', $escIntIDGrupo, \PDO::PARAM_INT);
+        $conn->execute();
+        $result = $conn->fetchAll();
+
+        return $result[0][0];
     }
 }

@@ -7,8 +7,8 @@
     - Integrantes - OK
     - Músicas - OK
     - Grupos - OK
-    - Escala-Integrantes
-    - Escala-Músicas
+    - Escala-Integrantes - OK  \
+    - Escala-Músicas - OK      /
 
 - Criação dos Controles
     - Usuários

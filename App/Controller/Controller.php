@@ -67,6 +67,11 @@ class Controller
         self::viewAction('grupos');
     }
 
+    public static function escalasAction()
+    {
+        self::viewAction('escalas');
+    }
+
     public static function homeAction()
     {
         header('Location: ' . DIR['home']);
