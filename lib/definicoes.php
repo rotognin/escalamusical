@@ -11,10 +11,6 @@ define('DIR', array('controller' => 'App' . DS . 'Controller' . DS,
                     'log'        => 'log' . DS . 'log.txt'
                    )
         );
-define('ATIVA', 0);
-define('INATIVA', 1);
-define('PARADO', 0);
-define('INICIADO', 1);
 
 function autoload($class)
 {   

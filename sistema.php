@@ -7,11 +7,13 @@ require 'lib' . DIRECTORY_SEPARATOR . 'definicoes.php';
 $view = DIR['view'] . $_SESSION['view'] . '.php';
 $usuID = (isset($_SESSION['usuID'])) ? (integer) $_SESSION['usuID'] : (integer) 0;
 
+/*
 if ($usuID == 0){
     $_SESSION['mensagem'] = 'Acesso não autorizado. Realize o login.';
     header('Location: index.php');
     exit();
 }
+*/
 
 // Carregar a View e exibir seu conteúdo
 ob_start();

@@ -36,20 +36,3 @@ function ajustarHora(string $dataHoraOrigem)
     $hora     = explode(':', $dataHora[1]);
     return $hora[0] . ':' . $hora[1];
 }
-
-/**
- * Passado o registro de tempo de uma atividade, contabiliza o tempo em horas
- */
-function contabilizarTempo(array $horario)
-{
-    $total = '';
-    $dataIniStr = $horario['horDataIni'] . ' ' . $horario['horHoraIni'];
-    $dataFimStr = $horario['horDataFim'] . ' ' . $horario['horHoraFim'];
-
-    $dataIni = new DateTime($dataIniStr);
-    $dataFim = new DateTime($dataFimStr);
-
-    $intervalo = $dataIni->diff($dataFim);
-    return (string) $intervalo->h . ':' . $intervalo->i;
-
-}

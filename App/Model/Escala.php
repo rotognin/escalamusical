@@ -102,11 +102,11 @@ class Escala
                 'WHERE escIntID = :escIntID';
         $conn = Conexao::getConexao()->prepare($sql);
         return $conn->execute(array(
-            'escIntIDGrupo'    => $escala['escIntIDGrupo'],
-            'escIntIDIntegrante'   => $escala['escIntIDIntegrante'],
-            'escIntObservacao' => $escala['escIntObservacao'],
-            'escIntAtivo'      => $escala['escIntAtivo'],
-            'escIntID'         => $escala['escIntID']
+            'escIntIDGrupo'      => $escala['escIntIDGrupo'],
+            'escIntIDIntegrante' => $escala['escIntIDIntegrante'],
+            'escIntObservacao'   => $escala['escIntObservacao'],
+            'escIntAtivo'        => $escala['escIntAtivo'],
+            'escIntID'           => $escala['escIntID']
         ));
     }
 
