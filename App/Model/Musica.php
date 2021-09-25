@@ -92,7 +92,7 @@ class Musica
         $sql = 'SELECT * FROM musicas_tb ';
 
         if (!$bTodas){
-            $sql .= 'WHERE musAtivo = :musAtivo';
+            $sql .= 'WHERE musAtivo = :musAtivo ORDER BY musNome';
         }
 
         $conn = Conexao::getConexao()->prepare($sql);

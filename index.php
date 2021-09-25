@@ -31,23 +31,23 @@ $_SESSION['mensagem'] = '';
                     <th>Artista</th>
                 </tr>
                 <tr>
-                    <td>Eu e minha casa - 93</td>
+                    <td><a href="https://youtu.be/OzruQKZ55GQ">Eu e minha casa - 93</a></td>
                     <td>André Valadão</td>
                 </tr>
                 <tr>
-                    <td>Novo Nascimento - 155</td>
+                    <td><a href="https://youtu.be/Ri6hXuWiwd4">Novo Nascimento - 155</a></td>
                     <td>Daniel Souza</td>
                 </tr>
                 <tr>
-                    <td><a href="https://www.youtube.com/watch?v=NYskwHcicjA">Obrigado Jesus (nova)</a></td>
+                    <td><a href="https://youtu.be/NYskwHcicjA">Obrigado Jesus (nova)</a></td>
                     <td>Anda Célia</td>
                 </tr>
                 <tr>
-                    <td>C.C. Rica Promessa - 349</a></td>
+                    <td><a href="https://youtu.be/ZFtUryRLbTU">C.C. Rica Promessa - 349</a></td>
                     <td>Cantor Cristão</td>
                 </tr>
                 <tr>
-                    <td colspan="2"><p><b>Integrantes:</b> Debora, Samyra, Suzi, Rodrigo, Raissa, Pacheco, Pastor</p></td>
+                    <td colspan="2"><p><b>Integrantes:</b> Dani, Gabriel, Suzi, Rodrigo, Raissa, Pacheco, Pastor</p></td>
                 </tr>
                 <tr>
                     <td colspan="2"><p><b>Observações:</b> Providenciar a cifra da música nova "Obrigado Jesus"</p></td>
@@ -62,19 +62,19 @@ $_SESSION['mensagem'] = '';
                     <th>Artista</th>
                 </tr>
                 <tr>
-                    <td>Eu me alegro em ti - 94</td>
+                    <td><a href="https://youtu.be/b1d6C681f4Y">Eu me alegro em ti - 94</a></td>
                     <td>Ministério de louvor Shalom</td>
                 </tr>
                 <tr>
-                    <td>Deus cuida de mim - 62</td>
+                    <td><a href="https://youtu.be/wV1KMwxYgbw">Deus cuida de mim - 62</a></td>
                     <td>Kleber Lucas</td>
                 </tr>
                 <tr>
-                    <td>Aos pés da cruz</td>
+                    <td><a href="https://youtu.be/9EMU0SPZzr4">Aos pés da cruz</a></td>
                     <td>Kleber Lucas</td>
                 </tr>
                 <tr>
-                    <td>C.C. A fé contemplada - 349</a></td>
+                    <td><a href="https://youtu.be/HHt88u94AhM">C.C. A fé contemplada - 160</a></td>
                     <td>Cantor Cristão</td>
                 </tr>
                 <tr>
