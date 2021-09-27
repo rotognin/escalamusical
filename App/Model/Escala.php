@@ -48,27 +48,44 @@ class Escala
                 'VALUES (:escMusIDGrupo, :escMusIDMusica, :escMusObservacao, :escMusAtivo)';
         $conn = Conexao::getConexao()->prepare($sql);
         return $conn->execute(array(
-            'escMusIDGrupo'      => $escala['escMusIDGrupo'],
-            'escMusIDMusica'   => $escala['escMusIDMusica'],
-            'escMusObservacao'      => $escala['escMusObservacao'],
-            'escMusAtivo'     => $escala['escMusAtivo'])
-        );
-    }
-
-    public static function atualizarMusica(array $escala)
-    {
-        $sql = 'UPDATE escalamusicas_tb SET ' .
-                'escMusIDGrupo = :escMusIDGrupo, escMusIDMusica = :escMusIDMusica, ' . 
-                'escMusObservacao = :escMusObservacao, escMusAtivo = :escMusAtivo ' . 
-                'WHERE escMusID = :escMusID';
-        $conn = Conexao::getConexao()->prepare($sql);
-        return $conn->execute(array(
             'escMusIDGrupo'    => $escala['escMusIDGrupo'],
             'escMusIDMusica'   => $escala['escMusIDMusica'],
             'escMusObservacao' => $escala['escMusObservacao'],
-            'escMusAtivo'      => $escala['escMusAtivo'],
-            'escMusID'         => $escala['escMusID']
-        ));
+            'escMusAtivo'      => $escala['escMusAtivo'])
+        );
+    }
+
+    /**
+     * Procedimento para excluir as músicas que estiverem em uma escala
+     * Utilizado para recompor as músicas quando existir alguma alteração,
+     * pois sempre irão ser excluídos os registros em vez de regravados.
+     */
+    public static function excluirMusicas(int $gruID)
+    {
+        if (!is_numeric($gruID) || $gruID == 0){
+            return false;
+        }
+
+        $sql = 'DELETE FROM escalamusicas_tb WHERE escMusIDGrupo = :escMusIDGrupo';
+        $conn = Conexao::getConexao()->prepare($sql);
+        $conn->bindValue('escMusIDGrupo', $gruID, \PDO::PARAM_INT);
+        $conn->execute();
+
+        return true;
+    }
+
+    public static function excluirIntegrantes(int $gruID)
+    {
+        if (!is_numeric($gruID) || $gruID == 0){
+            return false;
+        }
+
+        $sql = 'DELETE FROM escalaintegrantes_tb WHERE escIntIDGrupo = :escIntIDGrupo';
+        $conn = Conexao::getConexao()->prepare($sql);
+        $conn->bindValue('escIntIDGrupo', $gruID, \PDO::PARAM_INT);
+        $conn->execute();
+
+        return true;
     }
 
     /**
@@ -86,22 +103,6 @@ class Escala
             'escIntObservacao'   => $escala['escIntObservacao'],
             'escIntAtivo'        => $escala['escIntAtivo'])
         );
-    }
-
-    public static function atualizarIntegrante(array $escala)
-    {
-        $sql = 'UPDATE escalaintegrantes_tb SET ' .
-                'escIntIDGrupo = :escIntIDGrupo, escIntIDIntegrante = :escIntIDIntegrante, ' . 
-                'escIntObservacao = :escIntObservacao, escIntAtivo = :escIntAtivo ' .
-                'WHERE escIntID = :escIntID';
-        $conn = Conexao::getConexao()->prepare($sql);
-        return $conn->execute(array(
-            'escIntIDGrupo'      => $escala['escIntIDGrupo'],
-            'escIntIDIntegrante' => $escala['escIntIDIntegrante'],
-            'escIntObservacao'   => $escala['escIntObservacao'],
-            'escIntAtivo'        => $escala['escIntAtivo'],
-            'escIntID'           => $escala['escIntID']
-        ));
     }
 
     /**

@@ -40,75 +40,66 @@ $_SESSION['mensagem'] = '';
             <?php include_once 'lib/mensagem.php'; ?>
             <form method="post" 
                   class="w3-container"
-                  action="teste.php"> 
-                  <!--action="principal.php?control=escala&action=gravar"-->
+                  action="principal.php?control=escala&action=gravar">
 
                 <h3>Músicas</h3>
                 <table class="w3-table w3-striped w3-bordered">
                     <tr>
-                        <th>X</th>
+                        <th><i class="fa fa-check"></i></th>
                         <th>ID</th>
                         <th>Nome</th>
                         <th>Artista</th>
                         <th>Descrição</th>
                         <th>Observações</th>
                     </tr>
-                    <tr>
-                        <td><input type="checkbox" id="musica1" name="musica[]" value="1"></td>
-                        <td>1</td>
-                        <td>Tuas águas</td>
-                        <td>Armandinho</td>
-                        <td>Música do CD "O Rei"</td>
-                        <td><input type="text" size="50" id="musica1" name="musicaObs1"></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" id="musica2" name="musica[]" value="2"></td>
-                        <td>1</td>
-                        <td>Tuas águas</td>
-                        <td>Armandinho</td>
-                        <td>Música do CD "O Rei"</td>
-                        <td><input type="text" size="50" id="musica2" name="musicaObs2"></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" id="musica3" name="musica[]" value="3"></td>
-                        <td>1</td>
-                        <td>Tuas águas</td>
-                        <td>Armandinho</td>
-                        <td>Música do CD "O Rei"</td>
-                        <td><input type="text" size="50" id="musica3" name="musicaObs3"></td>
-                    </tr>
+                    <?php
+                    foreach ($musicas as $musica)
+                    {
+                        echo '<tr>';
+                        echo '<td><input type="checkbox" id="musica' . $musica['musID'] . 
+                             '" name="musica[]" value="' . $musica['musID'] . '"></td>';
+                        echo '<td>' . $musica['musID'] . '</td>';
+
+                        $musLink = '<a href="' . $musica['musLink'] .'" target="_blank" rel="noopener noreferrer">';
+                        echo '<td>' . 
+                             seNaoVazia($musica['musLink'], $musLink) . 
+                             $musica['musNome'] . 
+                             seNaoVazia($musica['musLink'], '</a>') .
+                             '</td>';
+                        echo '<td>' . $musica['musArtista'] . '</td>';
+                        echo '<td>' . $musica['musDescricao'] . '</td>';
+                        echo '<td><input type="text" size="50" id="musicaobs' . $musica['musID'] . 
+                             '" name="musicaobs' . $musica['musID'] . '"></td>';
+                        echo '</tr>';
+                    }
+                        
+                    ?>
                 </table>
                 <br>
                 <h3>Integrantes</h3>
                 <table class="w3-table w3-striped w3-bordered">
                     <tr>
-                        <th>X</th>
+                        <th><i class="fa fa-check"></i></th>
                         <th>ID</th>
                         <th>Nome</th>
                         <th>Contato</th>
                         <th>Observações</th>
                     </tr>
-                    <tr>
-                        <td><input type="checkbox" id="integrante1" name="integrante[]" value="1"></td>
-                        <td>1</td>
-                        <td>Rodrigo</td>
-                        <td>Zap: 99669-9888</td>
-                        <td><input type="text" size="50" id="integrante1" name="integranteObs1"></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" id="integrante2" name="integrante[]" value="2"></td>
-                        <td>1</td>
-                        <td>Rodrigo</td>
-                        <td>Zap: 99669-9888</td>
-                        <td><input type="text" size="50" id="integrante2" name="integranteObs2"></td>
-                    </tr>
-                    <tr>
-                        <td><input type="checkbox" id="integrante3" name="integrante[]" value="3"></td>
-                        <td>1</td>
-                        <td>Rodrigo</td>
-                        <td>Zap: 99669-9888</td>
-                        <td><input type="text" size="50" id="integrante3" name="integranteObs3"></td>
-                    </tr>
+                    <?php
+                    foreach($integrantes as $integrante)
+                    {
+                        echo '<tr>';
+                        echo '<td><input type="checkbox" id="integrante' . $integrante['intID'] .
+                             '" name="integrante[]" value="' . $integrante['intID'] . '"></td>';
+                        echo '<td>' . $integrante['intID'] . '</td>';
+                        echo '<td>' . $integrante['intNome'] . '</td>';
+                        echo '<td>' . $integrante['intContato'] . '</td>';
+                        echo '<td><input type="text" size="50" id="integranteobs' . 
+                             $integrante['intID'] . '" name="integranteobs' . $integrante['intID'] . '"></td>';
+                        echo '</tr>';
+                    }
+
+                    ?>
                 </table>
                 <br><br>
                 <input type="hidden" id="gruID" name="gruID" value="<?php echo $gruID; ?>">

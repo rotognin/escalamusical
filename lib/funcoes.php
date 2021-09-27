@@ -36,3 +36,11 @@ function ajustarHora(string $dataHoraOrigem)
     $hora     = explode(':', $dataHora[1]);
     return $hora[0] . ':' . $hora[1];
 }
+
+/**
+ * Se a string passada não estiver vazia, retorna a segunda string
+ */
+function seNaoVazia(string $valor, string $retorno)
+{
+    return (empty($valor)) ? '' : $retorno;
+}
