@@ -34,27 +34,30 @@ class escalaController extends Controller
          * Fazer a lógica de leitura de todas as músicas e integrantes que foram
          * selecionadas e ir gravando no banco.
          */
-        /*
-        foreach($post['musica'] as $musica)
+        
+        foreach($post['musica'] as $idMusica)
         {
+            //echo 'ID Música: ' . $idMusica . ' - ' . $post['musicaobs' . $idMusica];
+            //echo '<br>';
+
             Model\Escala::gravarMusica(array(
-                'escMusIDGrupo' => $post['gruID'],
-                'escMusIDMusica' => $musica
+                'escMusIDGrupo'    => $post['gruID'],
+                'escMusIDMusica'   => $idMusica,
+                'escMusObservacao' => $post['musicaobs' . $idMusica],
+                'escMusAtivo'      => 1
             ));
-
-            $escala['escMusIDGrupo'],
-            $escala['escMusIDMusica'],
-            $escala['escMusObservacao'],
-            $escala['escMusAtivo'])
         }
-        */
 
-        var_dump($post);
-        
-        
+        foreach($post['integrante'] as $idIntegrante)
+        {
+            Model\Escala::gravarIntegrante(array(
+                'escIntIDGrupo'      => $post['gruID'],
+                'escIntIDIntegrante' => $idIntegrante,
+                'escIntObservacao'   => $post['integranteobs' . $idIntegrante],
+                'escIntAtivo'        => 1
+            ));
+        }
 
-
-         
-
+        parent::viewAction('escalas');
     }
 }
