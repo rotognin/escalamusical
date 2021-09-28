@@ -97,7 +97,7 @@ class Grupo
             $sql .= 'WHERE gruStatus = :gruStatus ';
         }
 
-        $sql .= ' ORDER BY gruID DESC';
+        //$sql .= ' ORDER BY gruID DESC';
 
         $conn = Conexao::getConexao()->prepare($sql);
 
