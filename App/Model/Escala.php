@@ -110,7 +110,11 @@ class Escala
      */
     public static function carregarMusicas(int $escMusIDGrupo)
     {
-        $sql = 'SELECT * FROM escalamusicas_tb WHERE escMusIDGrupo = :escMusIDGrupo';
+        $sql = 'SELECT e.escMusID, e.escMusIDGrupo, e.escMusIDMusica, e.escMusObservacao, ' .
+               'e.escMusAtivo, m.musNome, m.musArtista, m.musLink, m.musDescricao ' .
+               'FROM escalamusicas_tb e ' .
+               'LEFT JOIN musicas_tb m ON e.escMusIDMusica = m.musID ' . 
+               'WHERE escMusIDGrupo = :escMusIDGrupo';
         $conn = Conexao::getConexao()->prepare($sql);
         $conn->bindValue('escMusIDGrupo', $escMusIDGrupo, \PDO::PARAM_INT);
         $conn->execute();
@@ -124,7 +128,11 @@ class Escala
      */
     public static function carregarIntegrantes(int $escIntIDGrupo)
     {
-        $sql = 'SELECT * FROM escalaintegrantes_tb WHERE escIntIDGrupo = :escIntIDGrupo';
+        $sql = 'SELECT e.escIntID, e.escIntIDGrupo, e.escIntIDIntegrante, e.escIntObservacao, ' .
+               'i.intNome, i.intContato' . 
+               ' FROM escalaintegrantes_tb e ' .
+               'LEFT JOIN integrantes_tb i ON e.escIntIDIntegrante = i.intID ' . 
+               'WHERE escIntIDGrupo = :escIntIDGrupo';
         $conn = Conexao::getConexao()->prepare($sql);
         $conn->bindValue('escIntIDGrupo', $escIntIDGrupo, \PDO::PARAM_INT);
         $conn->execute();

@@ -15,6 +15,12 @@ if (!isset($_SESSION['mensagem']))
 $mensagem = $_SESSION['mensagem'];
 $_SESSION['mensagem'] = '';
 
+require_once ('lib' . DIRECTORY_SEPARATOR . 'definicoes.php');
+
+// Buscar Grupos ativos a as escalas dos grupos
+use App\Model as Model;
+$grupos = Model\Grupo::listar(false);
+
 ?>
 
 <!DOCTYPE html>
@@ -23,65 +29,68 @@ $_SESSION['mensagem'] = '';
 <body>
     <div>
         <header class="w3-container w3-light-grey w3-margin-top"><h3>Louvor IBaPark</h3></header>
-        <div class="w3-container">
-            <h3>Domingo - 26/Setembro/2021</h3>
-            <table class="w3-table w3-striped w3-bordered">
-                <tr>
-                    <th>Música</th>
-                    <th>Artista</th>
-                </tr>
-                <tr>
-                    <td><a href="https://youtu.be/OzruQKZ55GQ">Eu e minha casa - 93</a></td>
-                    <td>André Valadão</td>
-                </tr>
-                <tr>
-                    <td><a href="https://youtu.be/Ri6hXuWiwd4">Novo Nascimento - 155</a></td>
-                    <td>Daniel Souza</td>
-                </tr>
-                <tr>
-                    <td><a href="https://youtu.be/NYskwHcicjA">Obrigado Jesus (nova)</a></td>
-                    <td>Anda Célia</td>
-                </tr>
-                <tr>
-                    <td><a href="https://youtu.be/ZFtUryRLbTU">C.C. Rica Promessa - 349</a></td>
-                    <td>Cantor Cristão</td>
-                </tr>
-                <tr>
-                    <td colspan="2"><p><b>Integrantes:</b> Dani, Gabriel, Suzi, Rodrigo, Raissa, Pacheco, Pastor</p></td>
-                </tr>
-                <tr>
-                    <td colspan="2"><p><b>Observações:</b> Providenciar a cifra da música nova "Obrigado Jesus"</p></td>
-                </tr>
-            </table>
-        </div>
-        <div class="w3-container">
-            <h3>Domingo - 03/Outubro/2021</h3>
-            <table class="w3-table w3-striped w3-bordered">
-                <tr>
-                    <th>Música</th>
-                    <th>Artista</th>
-                </tr>
-                <tr>
-                    <td><a href="https://youtu.be/b1d6C681f4Y">Eu me alegro em ti - 94</a></td>
-                    <td>Ministério de louvor Shalom</td>
-                </tr>
-                <tr>
-                    <td><a href="https://youtu.be/wV1KMwxYgbw">Deus cuida de mim - 62</a></td>
-                    <td>Kleber Lucas</td>
-                </tr>
-                <tr>
-                    <td><a href="https://youtu.be/9EMU0SPZzr4">Aos pés da cruz</a></td>
-                    <td>Kleber Lucas</td>
-                </tr>
-                <tr>
-                    <td><a href="https://youtu.be/HHt88u94AhM">C.C. A fé contemplada - 160</a></td>
-                    <td>Cantor Cristão</td>
-                </tr>
-                <tr>
-                    <td colspan="2"><p><b>Integrantes:</b> Dani, Gabriel, Haila, Pacheco, Raissa, Rodrigo</p></td>
-                </tr>
-            </table>
-        </div>
+
+        <?php
+        if (!empty($grupos)){
+            foreach($grupos as $grupo){
+                echo '<div class="w3-container">';
+                echo '<h3>' . $grupo['gruDescricao'] . '</h3>';
+                echo '<table class="w3-table w3-striped w3-bordered">';
+                echo '<tr>';
+                    echo '<th>Música</th>';
+                    echo '<th>Artista</th>';
+                echo '</tr>';
+
+                // Carregar as músicas para o grupo lido
+                $escalaMusicas = Model\Escala::carregarMusicas($grupo['gruID']);
+
+                foreach($escalaMusicas as $escMusica){
+                    echo '<tr>';
+                    if (empty($escMusica['musLink'])){
+                        echo '<td>' . $escMusica['musNome'] . '</td>';
+                    } else {
+                        echo '<td>';
+                        echo '<a href="' . $escMusica['musLink'] . '" target="_blank">';
+                        echo $escMusica['musNome'];
+                        echo '</a></td>';
+                    }
+                        
+                        echo '<td>' . $escMusica['musArtista'] . '</td>';
+                    echo '</tr>';
+                }
+
+                // Carregar os integrantes do grupo
+                $escalaIntegrantes = Model\Escala::carregarIntegrantes($grupo['gruID']);
+
+                echo '<tr>';
+                echo '<td colspan="2"><p><b>Integrantes: </b>';
+                $integrantes = '';
+
+                foreach($escalaIntegrantes as $escIntegrante){
+                    $integrantes .= $escIntegrante['intNome'] . ', ';
+                }
+
+                if (!empty($integrantes)){
+                    $integrantes = substr($integrantes, 0, strlen($integrantes) - 2);
+                }
+
+                echo $integrantes;
+
+                echo '</p></td>';
+                echo '</tr>';
+
+                if (!empty($grupo['gruObservacoes'])){
+                    echo '<tr><td colspan="2"><p><b>Observações: </b>';
+                    echo $grupo['gruObservacoes'];
+                    echo '</p></td></tr>';
+                }
+
+                echo '</table></div>';
+            }
+        } else {
+            echo '<p>Não há escalas disponíveis</p>';
+        }
+        ?>
     </div>
     <br>
     <div class="w3-container">
@@ -103,6 +112,7 @@ $_SESSION['mensagem'] = '';
             </p>
         </div>
         <?php include_once 'lib/mensagem.php'; ?>
+    </div>
     </div>
 </body>
 </html>

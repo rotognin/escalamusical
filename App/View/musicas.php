@@ -79,7 +79,7 @@ $_SESSION['mensagem'] = '';
                     // Se a música tiver link, colocar no nome da mesma
                     if ($musica['musLink'] != ''){
                         echo '<td>';
-                        echo '<a href="' . $musica['musLink'] . '">';
+                        echo '<a href="' . $musica['musLink'] . '" target="_blank">';
                         echo $musica['musNome'];
                         echo '</a></td>';
                     } else {
