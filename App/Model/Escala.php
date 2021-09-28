@@ -116,7 +116,21 @@ class Escala
         $conn->execute();
         $result = $conn->fetchAll();
 
-        return $result[0];
+        return $result;
+    }
+
+    /**
+     * Carregar todos os integrantes que estiverem ligados ao grupo
+     */
+    public static function carregarIntegrantes(int $escIntIDGrupo)
+    {
+        $sql = 'SELECT * FROM escalaintegrantes_tb WHERE escIntIDGrupo = :escIntIDGrupo';
+        $conn = Conexao::getConexao()->prepare($sql);
+        $conn->bindValue('escIntIDGrupo', $escIntIDGrupo, \PDO::PARAM_INT);
+        $conn->execute();
+        $result = $conn->fetchAll();
+
+        return $result;
     }
 
     /**

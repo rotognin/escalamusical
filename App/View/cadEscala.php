@@ -9,8 +9,15 @@ namespace App\View;
 use App\Model as Model;
 
 $gruID = (isset($_SESSION['gruID'])) ? $_SESSION['gruID'] : 0;
-$musicas = Model\Musica::listar(false);
+$musicas     = Model\Musica::listar(false);
 $integrantes = Model\Integrante::listar(false);
+
+// Buscar as músicas e integrantes que já estejam na escala
+$escMusicas     = Model\Escala::carregarMusicas($gruID);
+$escIntegrantes = Model\Escala::carregarIntegrantes($gruID);
+
+$temMusicas     = (count($escMusicas)     > 0) ? true : false;
+$temIntegrantes = (count($escIntegrantes) > 0) ? true : false;
 
 $grupo = Model\Grupo::carregar($gruID);
 
@@ -55,9 +62,23 @@ $_SESSION['mensagem'] = '';
                     <?php
                     foreach ($musicas as $musica)
                     {
+                        // Verificar se a música em questão está nessa escala
+                        $checked = '';
+                        $musObs  = '';
+
+                        if ($temMusicas){
+                            foreach ($escMusicas as $escMusica){
+                                if ($escMusica['escMusIDMusica'] == $musica['musID']){
+                                    $checked = 'checked';
+                                    $musObs = $escMusica['escMusObservacao'];
+                                    break;
+                                }
+                            }
+                        }
+
                         echo '<tr>';
                         echo '<td><input type="checkbox" id="musica' . $musica['musID'] . 
-                             '" name="musica[]" value="' . $musica['musID'] . '"></td>';
+                             '" name="musica[]" value="' . $musica['musID'] . '" ' . $checked . '></td>';
                         echo '<td>' . $musica['musID'] . '</td>';
 
                         $musLink = '<a href="' . $musica['musLink'] .'" target="_blank" rel="noopener noreferrer">';
@@ -69,7 +90,7 @@ $_SESSION['mensagem'] = '';
                         echo '<td>' . $musica['musArtista'] . '</td>';
                         echo '<td>' . $musica['musDescricao'] . '</td>';
                         echo '<td><input type="text" size="50" id="musicaobs' . $musica['musID'] . 
-                             '" name="musicaobs' . $musica['musID'] . '"></td>';
+                             '" name="musicaobs' . $musica['musID'] . '" value="' . $musObs . '"></td>';
                         echo '</tr>';
                     }
                         
@@ -88,14 +109,30 @@ $_SESSION['mensagem'] = '';
                     <?php
                     foreach($integrantes as $integrante)
                     {
+
+                        // Verificar se o integrante em questão está nessa escala
+                        $checked = '';
+                        $intObs  = '';
+
+                        if ($temIntegrantes){
+                            foreach ($escIntegrantes as $escIntegrante){
+                                if ($escIntegrante['escIntIDIntegrante'] == $integrante['intID']){
+                                    $checked = 'checked';
+                                    $intObs = $escIntegrante['escIntObservacao'];
+                                    break;
+                                }
+                            }
+                        }
+
                         echo '<tr>';
                         echo '<td><input type="checkbox" id="integrante' . $integrante['intID'] .
-                             '" name="integrante[]" value="' . $integrante['intID'] . '"></td>';
+                             '" name="integrante[]" value="' . $integrante['intID'] . '" ' . $checked . '></td>';
                         echo '<td>' . $integrante['intID'] . '</td>';
                         echo '<td>' . $integrante['intNome'] . '</td>';
                         echo '<td>' . $integrante['intContato'] . '</td>';
                         echo '<td><input type="text" size="50" id="integranteobs' . 
-                             $integrante['intID'] . '" name="integranteobs' . $integrante['intID'] . '"></td>';
+                             $integrante['intID'] . '" name="integranteobs' . $integrante['intID'] . 
+                             '" value="' . $intObs . '"></td>';
                         echo '</tr>';
                     }
 
