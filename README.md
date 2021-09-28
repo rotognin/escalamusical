@@ -1,4 +1,8 @@
-# Organizador de escalas para um grupo musical (em desenvolvimento...)
+# Organizador de escalas para um grupo musical
+
+Versão | Data
+:-------: | :-------:
+1.0    | 28/09/2021
 
 Sistema para controle de escalas para uma banda, ministério de música, grupos de ensaio.
 
@@ -7,3 +11,5 @@ A parte pública poderá ser vista por qualquer visitante, onde estarão os grup
 Cada música poderá ter um link para um vídeo no youtube, por exemplo, a fim dos integrantes poderem ouvir a versão que irão usar na apresentação.
 
 O sistema é simples, sem muito visual, pois estou dando prioridade na estrutura do código em PHP, usando padrão MVC e boas práticas de programação. Aos poucos pretendo ir melhorando o visual.
+
+Existem melhorias a serem realizadas, e estarei implementando ao longo do tempo.
