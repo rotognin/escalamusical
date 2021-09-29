@@ -28,13 +28,13 @@ $grupos = Model\Grupo::listar(false);
 <?php include 'html' . DIRECTORY_SEPARATOR . 'head.php'; ?>
 <body>
     <div>
-        <header class="w3-container w3-light-grey w3-margin-top"><h3>Louvor IBaPark</h3></header>
+        <header class="w3-container w3-blue w3-margin-top"><h3>Louvor IBaPark</h3></header>
 
         <?php
         if (!empty($grupos)){
             foreach($grupos as $grupo){
-                echo '<div class="w3-container">';
-                echo '<h3>' . $grupo['gruDescricao'] . '</h3>';
+                echo '<div class="w3-container w3-white">';
+                echo '<h3 class="w3-light-blue">' . $grupo['gruDescricao'] . '</h3>';
                 echo '<table class="w3-table w3-striped w3-bordered">';
                 echo '<tr>';
                     echo '<th>Música</th>';
