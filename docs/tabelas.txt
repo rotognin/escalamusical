@@ -43,6 +43,11 @@ Cadastro de integrantes da Escala - escalaintegrantes_tb
     - escIntObservacao
     - escIntAtivo - 1 - Ativo, 0 - Inativo
 
+Cadastro de categorias para as músicas - categorias_tb
+    - catID
+    - catNome
+    - catDescricao
+
 
 
 
@@ -54,4 +59,4 @@ Cadastro de integrantes da Escala - escalaintegrantes_tb
 *** Mural de recado do Administrador aos usuários do sistema
 *** Criar um campo de apelido para os integrantes (talvez...)
 *** Criar um cadastro de usuários com permissões: poderá criar grupos, alterar as escalas, escolher músicas, etc...
-*** Criar um cadastro de Categorias para as músicas
+*** Criar um cadastro de Categorias para as músicas - (... prosseguindo ...)

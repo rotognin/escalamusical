@@ -72,6 +72,11 @@ class Controller
         self::viewAction('escalas');
     }
 
+    public static function categoriasAction()
+    {
+        self::viewAction('categorias');
+    }
+
     public static function homeAction()
     {
         header('Location: ' . DIR['home']);

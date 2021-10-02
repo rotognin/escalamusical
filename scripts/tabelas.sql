@@ -54,3 +54,10 @@ CREATE TABLE `usuarios_tb` (
   `usuSituacao` int NOT NULL,
   PRIMARY KEY (`usuID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `categorias_tb` (
+  `catID` int NOT NULL AUTO_INCREMENT,
+  `catNome` varchar(20) NOT NULL,
+  `catDescricao` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`catID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
