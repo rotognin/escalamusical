@@ -61,3 +61,6 @@ CREATE TABLE `categorias_tb` (
   `catDescricao` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`catID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE `escalamusical_db`.`musicas_tb` 
+ADD COLUMN `musCategoria` INT NULL DEFAULT 0 AFTER `musDescricao`;

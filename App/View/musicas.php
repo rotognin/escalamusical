@@ -17,7 +17,7 @@ $bLogado = (isset($_SESSION['usuID']) && $_SESSION['usuID'] > 0);
 if ($bLogado) {
     $musicas = Model\Musica::listar();
 } else {
-    $musicas = Model\Musica::listar(false);
+    $musicas = Model\Musica::categorizar();
 }
 
 if (!isset($_SESSION['mensagem']))
@@ -56,7 +56,8 @@ $_SESSION['mensagem'] = '';
                 }
 
                 echo '<th>Nome</th>';
-                echo '<th>Artista</th>';                
+                echo '<th>Artista</th>';
+                echo '<th>Categoria</th>';                
                 
                 if ($bLogado) {
                     echo '<th>Descrição</th>';
@@ -87,6 +88,7 @@ $_SESSION['mensagem'] = '';
                     }
 
                     echo '<td>' . $musica['musArtista'] . '</td>';
+                    echo '<td>' . $musica['catNome'] . '</td>';
 
                     if ($bLogado) {
                         echo '<td>' . $musica['musDescricao'] . '</td>';

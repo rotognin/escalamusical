@@ -20,7 +20,8 @@ class Musica
             'musArtista'   => '',
             'musLink'      => '',
             'musAtivo'     => 1,
-            'musDescricao' => ''
+            'musDescricao' => '',
+            'musCategoria' => 0
         );
     }
 
@@ -40,15 +41,16 @@ class Musica
     public static function gravar(array $musica)
     {
         $sql = 'INSERT INTO musicas_tb (' .
-                'musNome, musArtista, musLink, musAtivo, musDescricao) ' .
-                'VALUES (:musNome, :musArtista, :musLink, :musAtivo, :musDescricao)';
+                'musNome, musArtista, musLink, musAtivo, musDescricao, musCategoria) ' .
+                'VALUES (:musNome, :musArtista, :musLink, :musAtivo, :musDescricao, :musCategoria)';
         $conn = Conexao::getConexao()->prepare($sql);
         return $conn->execute(array(
             'musNome'      => $musica['musNome'],
             'musArtista'   => $musica['musArtista'],
             'musLink'      => $musica['musLink'],
             'musAtivo'     => $musica['musAtivo'],
-            'musDescricao' => $musica['musDescricao'])
+            'musDescricao' => $musica['musDescricao'],
+            'musCategoria' => $musica['musCategoria'])
         );
     }
 
@@ -57,7 +59,7 @@ class Musica
         $sql = 'UPDATE musicas_tb SET ' .
                 'musNome = :musNome, musArtista = :musArtista, ' . 
                 'musLink = :musLink, musAtivo = :musAtivo, ' . 
-                'musDescricao = :musDescricao ' .
+                'musDescricao = :musDescricao, musCategoria = :musCategoria ' .
                 'WHERE musID = :musID';
         $conn = Conexao::getConexao()->prepare($sql);
         return $conn->execute(array(
@@ -66,6 +68,7 @@ class Musica
             'musLink'      => $musica['musLink'],
             'musAtivo'     => $musica['musAtivo'],
             'musDescricao' => $musica['musDescricao'],
+            'musCategoria' => $musica['musCategoria'],
             'musID'        => $musica['musID']
         ));
     }
@@ -99,6 +102,38 @@ class Musica
 
         if (!$bTodas){
             $conn->bindValue('musAtivo', $musAtivo, \PDO::PARAM_INT);
+        }
+
+        $conn->execute();
+        return $conn->fetchAll();
+    }
+
+    public static function categorizar(int $catID = 0)
+    {
+        $aMusica = self::getArray();
+        $campos = '';
+
+        foreach ($aMusica as $campo => $valor)
+        {
+            $campos .= 'm.' . $campo . ', ';
+        }
+
+        $sql = 'SELECT ' . $campos . 'c.catNome, c.CatDescricao FROM musicas_tb m ';
+        $sql .= 'LEFT JOIN categorias_tb c ON c.catID = m.musCategoria ';
+        $sql .= 'WHERE musAtivo = 1 ';
+
+        if ($catID > 0){
+            $sql .= 'AND m.musCategoria = :musCategoria ';
+        }
+
+        $sql .= 'ORDER BY m.musCategoria ASC';
+        
+        //Log::gravar($sql);
+
+        $conn = Conexao::getConexao()->prepare($sql);
+
+        if ($catID > 0){
+            $conn->bindValue('musCategoria', $catID, \PDO::PARAM_INT);
         }
 
         $conn->execute();

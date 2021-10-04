@@ -23,6 +23,8 @@ if ($musID > 0){
     }
 }
 
+$categorias = Model\Categoria::carregar();
+
 if (!isset($_SESSION['mensagem']))
 {
     $_SESSION['mensagem'] = '';
@@ -75,6 +77,32 @@ $_SESSION['mensagem'] = '';
                 <input type="text" id="musLink" 
                        name="musLink" value="<?php echo $musica['musLink']; ?>"
                        size="100">
+                <br><br>
+                <!-- Categorias -->
+                <label for="musCategoria">Categoria:</label>
+                <select class="w3-select" id="musCategoria" name="musCategoria">
+                <?php
+                    echo '<option value="0" ';
+                    if ($novo || $musica['musCategoria'] == 0){
+                        echo 'selected';
+                    }
+
+                    echo '>';
+                    echo 'Nenhuma';
+                    echo '&nbsp;&nbsp;&nbsp;</option>';
+
+                    foreach ($categorias as $categoria)
+                    {
+                        echo '<option value="' . $categoria['catID'] . '" ';
+                        if (!$novo && $musica['musCategoria'] == $categoria['catID']) {
+                            echo 'selected';
+                        }
+                        echo '>';
+                        echo $categoria['catNome'];
+                        echo '&nbsp;&nbsp;&nbsp;</option>';
+                    }
+                ?>
+                </select>
                 <br><br>
                 <!-- Situação -->
                 <p>Situação:

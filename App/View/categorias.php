@@ -8,7 +8,7 @@ namespace App\View;
 
 use App\Model as Model;
 
-$categorias = Model\Categoria::listar();
+$categorias = Model\Categoria::carregar();
 
 if (!isset($_SESSION['mensagem']))
 {
