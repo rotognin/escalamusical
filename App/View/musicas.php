@@ -14,11 +14,7 @@ use App\Model as Model;
 
 $bLogado = (isset($_SESSION['usuID']) && $_SESSION['usuID'] > 0);
 
-if ($bLogado) {
-    $musicas = Model\Musica::listar();
-} else {
-    $musicas = Model\Musica::categorizar();
-}
+$musicas = Model\Musica::categorizar(!$bLogado);
 
 if (!isset($_SESSION['mensagem']))
 {

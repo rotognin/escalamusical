@@ -108,7 +108,7 @@ class Musica
         return $conn->fetchAll();
     }
 
-    public static function categorizar(int $catID = 0)
+    public static function categorizar(bool $bAtivo = true)
     {
         $aMusica = self::getArray();
         $campos = '';
@@ -120,10 +120,9 @@ class Musica
 
         $sql = 'SELECT ' . $campos . 'c.catNome, c.CatDescricao FROM musicas_tb m ';
         $sql .= 'LEFT JOIN categorias_tb c ON c.catID = m.musCategoria ';
-        $sql .= 'WHERE musAtivo = 1 ';
 
-        if ($catID > 0){
-            $sql .= 'AND m.musCategoria = :musCategoria ';
+        if ($bAtivo) {
+            $sql .= 'WHERE musAtivo = 1 ';
         }
 
         $sql .= 'ORDER BY m.musCategoria ASC';
@@ -131,11 +130,6 @@ class Musica
         //Log::gravar($sql);
 
         $conn = Conexao::getConexao()->prepare($sql);
-
-        if ($catID > 0){
-            $conn->bindValue('musCategoria', $catID, \PDO::PARAM_INT);
-        }
-
         $conn->execute();
         return $conn->fetchAll();
     }
