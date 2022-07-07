@@ -6,6 +6,9 @@ Versão | Data
 
 Sistema para controle de escalas para uma banda, ministério de música, grupos de ensaio.
 
+Estou usando esse sistema para organizar as músicas e a escala dos integrantes do grupo. 
+Ele está rodando no meu site, através <b>[deste link](https://rodrigotognin.com.br/louvor).</b>
+
 A parte pública poderá ser vista por qualquer visitante, onde estarão os grupos montados, as músicas a serem executadas, bem como os integrantes do grupo. O painel administrativo será acessado por usuários cadastrados, o que permitirá criar os cadastros de músicas, integrantes, montar os grupos e as escalas para o grupo (escolher as músicas e os integrantes que farão parte daquele grupo).
 
 Cada música poderá ter um link para um vídeo no youtube, por exemplo, a fim dos integrantes poderem ouvir a versão que irão usar na apresentação.
