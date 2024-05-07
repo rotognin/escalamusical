@@ -1,5 +1,7 @@
 <?php
 
+// localhost:8047
+
 session_start();
 
 // Ao cair nessa página, se o usuário estiver logado, irá ser deslogado do sistema.
