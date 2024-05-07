@@ -3,22 +3,24 @@
 session_start();
 
 // Ao cair nessa página, se o usuário estiver logado, irá ser deslogado do sistema.
+/*
 $_SESSION['usuID'] = 0;
 $_SESSION['usuNome'] = '';
+*/
 $_SESSION['dir'] = __DIR__ . DIRECTORY_SEPARATOR;
 
-if (!isset($_SESSION['mensagem']))
-{
+if (!isset($_SESSION['mensagem'])) {
     $_SESSION['mensagem'] = '';
 }
 
 $mensagem = $_SESSION['mensagem'];
 $_SESSION['mensagem'] = '';
 
-require_once ('lib' . DIRECTORY_SEPARATOR . 'definicoes.php');
+require_once('lib' . DIRECTORY_SEPARATOR . 'definicoes.php');
 
 // Buscar Grupos ativos a as escalas dos grupos
 use App\Model as Model;
+
 $grupos = Model\Grupo::listar(false);
 
 ?>
@@ -26,27 +28,30 @@ $grupos = Model\Grupo::listar(false);
 <!DOCTYPE html>
 <html>
 <?php include 'html' . DIRECTORY_SEPARATOR . 'head.php'; ?>
+
 <body>
     <div>
-        <header class="w3-container w3-blue w3-margin-top"><h3>Louvor IBaPark</h3></header>
+        <header class="w3-container w3-blue w3-margin-top">
+            <h3>Louvor IBaPark</h3>
+        </header>
 
         <?php
-        if (!empty($grupos)){
-            foreach($grupos as $grupo){
+        if (!empty($grupos)) {
+            foreach ($grupos as $grupo) {
                 echo '<div class="w3-container w3-white">';
                 echo '<h3 class="w3-light-blue">' . $grupo['gruDescricao'] . '</h3>';
                 echo '<table class="w3-table w3-striped w3-bordered">';
                 echo '<tr>';
-                    echo '<th>Música</th>';
-                    echo '<th>Artista</th>';
+                echo '<th>Música</th>';
+                echo '<th>Artista</th>';
                 echo '</tr>';
 
                 // Carregar as músicas para o grupo lido
                 $escalaMusicas = Model\Escala::carregarMusicas($grupo['gruID']);
 
-                foreach($escalaMusicas as $escMusica){
+                foreach ($escalaMusicas as $escMusica) {
                     echo '<tr>';
-                    if (empty($escMusica['musLink'])){
+                    if (empty($escMusica['musLink'])) {
                         echo '<td>' . $escMusica['musNome'] . '</td>';
                     } else {
                         echo '<td>';
@@ -54,8 +59,8 @@ $grupos = Model\Grupo::listar(false);
                         echo $escMusica['musNome'];
                         echo '</a></td>';
                     }
-                        
-                        echo '<td>' . $escMusica['musArtista'] . '</td>';
+
+                    echo '<td>' . $escMusica['musArtista'] . '</td>';
                     echo '</tr>';
                 }
 
@@ -63,14 +68,20 @@ $grupos = Model\Grupo::listar(false);
                 $escalaIntegrantes = Model\Escala::carregarIntegrantes($grupo['gruID']);
 
                 echo '<tr>';
-                echo '<td colspan="2"><p><b>Integrantes: </b>';
+                echo '<td colspan="2"><p><b>Integrantes: </b> &nbsp;&nbsp;&nbsp;';
                 $integrantes = '';
 
-                foreach($escalaIntegrantes as $escIntegrante){
-                    $integrantes .= $escIntegrante['intNome'] . ', ';
+                foreach ($escalaIntegrantes as $escIntegrante) {
+                    $integrantes .= '<b>' . $escIntegrante['intNome'] . '</b>';
+
+                    if ($escIntegrante['escIntObservacao'] != '') {
+                        $integrantes .= ' (' . $escIntegrante['escIntObservacao'] . ')';
+                    }
+
+                    $integrantes .= ', ';
                 }
 
-                if (!empty($integrantes)){
+                if (!empty($integrantes)) {
                     $integrantes = substr($integrantes, 0, strlen($integrantes) - 2);
                 }
 
@@ -79,7 +90,7 @@ $grupos = Model\Grupo::listar(false);
                 echo '</p></td>';
                 echo '</tr>';
 
-                if (!empty($grupo['gruObservacoes'])){
+                if (!empty($grupo['gruObservacoes'])) {
                     echo '<tr><td colspan="2"><p><b>Observações: </b>';
                     echo $grupo['gruObservacoes'];
                     echo '</p></td></tr>';
@@ -115,4 +126,5 @@ $grupos = Model\Grupo::listar(false);
     </div>
     </div>
 </body>
+
 </html>
