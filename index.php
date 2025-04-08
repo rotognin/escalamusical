@@ -36,6 +36,10 @@ $grupos = Model\Grupo::listar(false);
         <header class="w3-container w3-blue w3-margin-top">
             <h3>Louvor IBaPark</h3>
         </header>
+        <br>
+        <div class="w3-container">
+            <a class="w3-button w3-indigo" href="principal.php?action=musicas">Lista de Músicas</a>
+        </div>
 
         <?php
         if (!empty($grupos)) {
@@ -104,10 +108,6 @@ $grupos = Model\Grupo::listar(false);
             echo '<p>Não há escalas disponíveis</p>';
         }
         ?>
-    </div>
-    <br>
-    <div class="w3-container">
-        <a class="w3-button w3-blue" href="principal.php?action=musicas">Músicas</a>
     </div>
     <br>
     <div class="w3-container w3-card-4">
