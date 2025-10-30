@@ -7,9 +7,24 @@ class Grupo
 
     private static $status = array(
         0 => 'Inativo',
-        1 => 'Ativo', 
+        1 => 'Ativo',
         2 => 'Arquivado',
         3 => 'Cancelado'
+    );
+
+    private static $meses = array(
+        '01' => 'Janeiro',
+        '02' => 'Fevereiro',
+        '03' => 'Março',
+        '04' => 'Abril',
+        '05' => 'Maio',
+        '06' => 'Junho',
+        '07' => 'Julho',
+        '08' => 'Agosto',
+        '09' => 'Setembro',
+        '10' => 'Outubro',
+        '11' => 'Novembro',
+        '12' => 'Dezembro'
     );
 
     public static function getArray()
@@ -26,7 +41,7 @@ class Grupo
 
     public static function validar(array $grupo)
     {
-        if ($grupo['gruDescricao'] == ''){
+        if ($grupo['gruDescricao'] == '') {
             $_SESSION['mensagem'] = 'A Descrição do grupo deve ser informada';
             return false;
         }
@@ -37,25 +52,27 @@ class Grupo
     public static function gravar(array $grupo)
     {
         $sql = 'INSERT INTO grupos_tb (' .
-                'gruDescricao, gruObservacoes, gruData, gruHora, gruStatus) ' .
-                'VALUES (:gruDescricao, :gruObservacoes, :gruData, :gruHora, :gruStatus)';
+            'gruDescricao, gruObservacoes, gruData, gruHora, gruStatus) ' .
+            'VALUES (:gruDescricao, :gruObservacoes, :gruData, :gruHora, :gruStatus)';
         $conn = Conexao::getConexao()->prepare($sql);
-        return $conn->execute(array(
-            'gruDescricao'   => $grupo['gruDescricao'],
-            'gruObservacoes' => $grupo['gruObservacoes'],
-            'gruData'        => $grupo['gruData'],
-            'gruHora'        => $grupo['gruHora'],
-            'gruStatus'      => $grupo['gruStatus'])
+        return $conn->execute(
+            array(
+                'gruDescricao'   => $grupo['gruDescricao'],
+                'gruObservacoes' => $grupo['gruObservacoes'],
+                'gruData'        => $grupo['gruData'],
+                'gruHora'        => $grupo['gruHora'],
+                'gruStatus'      => $grupo['gruStatus']
+            )
         );
     }
 
     public static function atualizar(array $grupo)
     {
         $sql = 'UPDATE grupos_tb SET ' .
-                'gruDescricao = :gruDescricao, gruObservacoes = :gruObservacoes, ' . 
-                'gruData = :gruData, gruHora = :gruHora, ' . 
-                'gruStatus = :gruStatus ' .
-                'WHERE gruID = :gruID';
+            'gruDescricao = :gruDescricao, gruObservacoes = :gruObservacoes, ' .
+            'gruData = :gruData, gruHora = :gruHora, ' .
+            'gruStatus = :gruStatus ' .
+            'WHERE gruID = :gruID';
         $conn = Conexao::getConexao()->prepare($sql);
         return $conn->execute(array(
             'gruDescricao'   => $grupo['gruDescricao'],
@@ -69,7 +86,7 @@ class Grupo
 
     public static function carregar(int $gruID)
     {
-        if (is_nan($gruID) || $gruID == 0){
+        if (is_nan($gruID) || $gruID == 0) {
             $_SESSION['mensagem'] = 'Carregamento incorreto: [Grupo - Carregar - ' . $gruID . ']';
             return false;
         }
@@ -79,7 +96,7 @@ class Grupo
         $conn->execute(array('gruID' => $gruID));
         $result = $conn->fetchAll();
 
-        if (empty($result)){
+        if (empty($result)) {
             return false;
         }
 
@@ -93,7 +110,7 @@ class Grupo
     {
         $sql = 'SELECT * FROM grupos_tb ';
 
-        if (!$bTodos){
+        if (!$bTodos) {
             $sql .= 'WHERE gruStatus = :gruStatus ';
         }
 
@@ -101,7 +118,7 @@ class Grupo
 
         $conn = Conexao::getConexao()->prepare($sql);
 
-        if (!$bTodos){
+        if (!$bTodos) {
             $conn->bindValue('gruStatus', $gruStatus, \PDO::PARAM_INT);
         }
 
@@ -114,5 +131,30 @@ class Grupo
         return self::$status[$gruStatus];
     }
 
+    public static function buscarMeses()
+    {
+        // Buscar os meses e anos da escala, do mais antigo para o mais novo
+        $sql = 'SELECT * FROM grupos_tb ORDER BY gruID ASC';
 
+        $conn = Conexao::getConexao()->prepare($sql);
+        $conn->execute();
+        $aMeses = $conn->fetchAll();
+
+        $array = [];
+
+        if (!empty($aMeses)) {
+            foreach ($aMeses as $mes) {
+                $aData = explode('-', $mes['gruData']);
+                $dia = $aData[2];
+                $mes = $aData[1];
+                $ano = $aData[0];
+
+                if (!isset($array[$mes . '-' . $ano])) {
+                    $array[$mes . '-' . $ano] = self::$meses[$mes] . '/' . $ano;
+                }
+            }
+        }
+
+        return $array;
+    }
 }

@@ -24,6 +24,7 @@ require_once('lib' . DIRECTORY_SEPARATOR . 'definicoes.php');
 use App\Model as Model;
 
 $grupos = Model\Grupo::listar(false);
+$meses = Model\Grupo::buscarMeses();
 
 ?>
 
@@ -41,6 +42,23 @@ $grupos = Model\Grupo::listar(false);
             <a class="w3-button w3-indigo" href="principal.php?action=musicas">Lista de Músicas</a>
 
             <!-- acesso a escalas anteriores -->
+            <?php
+            $select = '';
+
+            if (!empty($meses)) {
+                $select = '<div class="w3-dropdown-click">' .
+                    '<button onclick="myFunction()" class="w3-button w3-indigo">Escalas Anteriores</button>' .
+                    '<div id="anteriores" class="w3-dropdown-content w3-bar-block w3-border">';
+
+                foreach ($meses as $mes_ano => $desc_mes_ano) {
+                    $select .= '<a href="#" class="w3-bar-item w3-button">' . $desc_mes_ano . '</a>';
+                }
+
+                $select .= '</div></div>';
+            }
+
+            echo $select;
+            ?>
         </div>
 
         <?php
@@ -129,6 +147,16 @@ $grupos = Model\Grupo::listar(false);
         <?php include_once 'lib/mensagem.php'; ?>
     </div>
     </div>
+    <script>
+        function myFunction() {
+            var x = document.getElementById("anteriores");
+            if (x.className.indexOf("w3-show") == -1) {
+                x.className += " w3-show";
+            } else {
+                x.className = x.className.replace(" w3-show", "");
+            }
+        }
+    </script>
 </body>
 
 </html>
