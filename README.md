@@ -1,6 +1,6 @@
 # Organizador de escalas para um grupo musical
 
-Versão | Data
+Versão | Data | Detalhes
 :-------: | :-------: | :-------:
 1.0    | 28/09/2021 | Liberação em produção
 1.1    | 30/10/2025 | Botão para acesso a escalas anteriores
