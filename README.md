@@ -1,8 +1,9 @@
 # Organizador de escalas para um grupo musical
 
 Versão | Data
-:-------: | :-------:
-1.0    | 28/09/2021
+:-------: | :-------: | :-------:
+1.0    | 28/09/2021 | Liberação em produção
+1.1    | 30/10/2025 | Botão para acesso a escalas anteriores
 
 Sistema para controle de escalas para uma banda, ministério de música, grupos de ensaio.
 
