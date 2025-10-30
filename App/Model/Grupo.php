@@ -12,7 +12,7 @@ class Grupo
         3 => 'Cancelado'
     );
 
-    private static $meses = array(
+    public static $meses = array(
         '01' => 'Janeiro',
         '02' => 'Fevereiro',
         '03' => 'Março',
@@ -126,6 +126,23 @@ class Grupo
         return $conn->fetchAll();
     }
 
+    public static function listarData($mes, $ano)
+    {
+        $sql = 'SELECT * FROM grupos_tb ';
+
+        $sql .= 'WHERE gruData BETWEEN :gruIni AND :gruFim ';
+
+        $ini = $ano . '-' . $mes . '-01';
+        $fim = $ano . '-' . $mes . '-31';
+
+        $conn = Conexao::getConexao()->prepare($sql);
+        $conn->bindValue('gruIni', $ini, \PDO::PARAM_STR);
+        $conn->bindValue('gruFim', $fim, \PDO::PARAM_STR);
+
+        $conn->execute();
+        return $conn->fetchAll();
+    }
+
     public static function getStatus(int $gruStatus)
     {
         return self::$status[$gruStatus];
@@ -134,7 +151,7 @@ class Grupo
     public static function buscarMeses()
     {
         // Buscar os meses e anos da escala, do mais antigo para o mais novo
-        $sql = 'SELECT * FROM grupos_tb ORDER BY gruID ASC';
+        $sql = 'SELECT * FROM grupos_tb ORDER BY gruID DESC';
 
         $conn = Conexao::getConexao()->prepare($sql);
         $conn->execute();

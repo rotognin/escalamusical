@@ -9,14 +9,14 @@ class Controller
     public static function loginAction(array $post, array $get)
     {
         // Obter os dados para o login
-        if ($post['login'] == '' || $post['senha'] == ''){
+        if ($post['login'] == '' || $post['senha'] == '') {
             $_SESSION['mensagem'] = 'Login ou senha em branco.';
             self::homeAction();
         }
 
         $usuario = Model\Usuario::verificarLogin($post['login'], $post['senha']);
 
-        if (!$usuario){
+        if (!$usuario) {
             $_SESSION['mensagem'] = 'Usuário ou senha inválidos.';
             self::homeAction();
         }
@@ -62,6 +62,16 @@ class Controller
         self::viewAction('musicas');
     }
 
+    public static function escalaAction(array $post, array $get)
+    {
+        // Acessar as escalas anteriores
+        $aMesAno = explode('-', $get['mesano']);
+        $mes = $aMesAno[0];
+        $ano = $aMesAno[1];
+
+        self::viewAction('escalaAnterior', 'mes=' . $mes . '&ano=' . $ano);
+    }
+
     public static function gruposAction()
     {
         self::viewAction('grupos');
@@ -80,7 +90,12 @@ class Controller
     public static function homeAction()
     {
         header('Location: ' . DIR['home']);
-        Exit;
+        exit;
+    }
+
+    public static function alterarSenha()
+    {
+        //
     }
 
     protected static function viewAction(string $view, string $addGet = '')
@@ -89,7 +104,7 @@ class Controller
         $_SESSION['view']   = $view;
         $_SESSION['addGet'] = $addGet;
 
-        header ('Location: ' . $location);
+        header('Location: ' . $location);
     }
 
     public static function logoutAction()
@@ -97,5 +112,4 @@ class Controller
         session_unset();
         self::homeAction();
     }
-    
 }

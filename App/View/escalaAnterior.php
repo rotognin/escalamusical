@@ -1,31 +1,20 @@
 <?php
 
-// localhost:8047
+namespace App\View;
 
-session_start();
-
-// Ao cair nessa página, se o usuário estiver logado, irá ser deslogado do sistema.
-/*
-$_SESSION['usuID'] = 0;
-$_SESSION['usuNome'] = '';
-*/
-$_SESSION['dir'] = __DIR__ . DIRECTORY_SEPARATOR;
-
-if (!isset($_SESSION['mensagem'])) {
-    $_SESSION['mensagem'] = '';
-}
-
-$mensagem = $_SESSION['mensagem'];
-$_SESSION['mensagem'] = '';
-
-require_once('lib' . DIRECTORY_SEPARATOR . 'definicoes.php');
-
-// Buscar Grupos ativos a as escalas dos grupos
 use App\Model as Model;
 
-$grupos = Model\Grupo::listar(false);
-$meses = Model\Grupo::buscarMeses();
-array_shift($meses);
+$addGet = $_SESSION['addGet'];
+$aGet = explode('&', $addGet);
+$aMes = explode('=', $aGet[0]);
+$aAno = explode('=', $aGet[1]);
+
+$mes = $aMes[1];
+$ano = $aAno[1];
+
+$grupos = Model\Grupo::listarData($mes, $ano);
+
+$desc_mes_ano = Model\Grupo::$meses[$mes] . '/' . $ano;
 
 ?>
 
@@ -36,30 +25,12 @@ array_shift($meses);
 <body>
     <div>
         <header class="w3-container w3-blue w3-margin-top">
-            <h3>Louvor IBaPark</h3>
+            <h3>Louvor IBaPark - Escalas Anteriores - <?= $desc_mes_ano; ?></h3>
         </header>
         <br>
+
         <div class="w3-container">
-            <a class="w3-button w3-indigo" href="principal.php?action=musicas">Lista de Músicas</a>
-
-            <!-- acesso a escalas anteriores -->
-            <?php
-            $select = '';
-
-            if (!empty($meses)) {
-                $select = '<div class="w3-dropdown-click">' .
-                    '<button onclick="abrirMenu()" class="w3-button w3-indigo">Escalas Anteriores</button>' .
-                    '<div id="anteriores" class="w3-dropdown-content w3-bar-block w3-border">';
-
-                foreach ($meses as $mes_ano => $desc_mes_ano) {
-                    $select .= '<a href="principal.php?action=escala&mesano=' . $mes_ano . '" class="w3-bar-item w3-button">' . $desc_mes_ano . '</a>';
-                }
-
-                $select .= '</div></div>';
-            }
-
-            echo $select;
-            ?>
+            <button class="w3-button w3-indigo" onclick="window.open('index.php', '_self')">Voltar</button>
         </div>
 
         <?php
@@ -131,33 +102,6 @@ array_shift($meses);
         ?>
     </div>
     <br>
-    <div class="w3-container w3-card-4">
-        <div class="w3-container">
-            <p>Administração:
-            <form method="post" class="w3-container" action="principal.php?action=login">
-                <label for="login"><i class="fa fa-user"></i></label>
-                <input type="text" id="login" name="login">
-                <br><br>
-                <label for="senha"><i class="fa fa-key"></i></label>
-                <input type="password" id="senha" name="senha">
-                <br><br>
-                <input type="submit" value="Entrar" class="w3-button w3-blue">
-            </form>
-            </p>
-        </div>
-        <?php include_once 'lib/mensagem.php'; ?>
-    </div>
-    </div>
-    <script>
-        function abrirMenu() {
-            var x = document.getElementById("anteriores");
-            if (x.className.indexOf("w3-show") == -1) {
-                x.className += " w3-show";
-            } else {
-                x.className = x.className.replace(" w3-show", "");
-            }
-        }
-    </script>
 </body>
 
 </html>
