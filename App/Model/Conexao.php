@@ -9,7 +9,9 @@ class Conexao
     static function getConexao()
     {
         if (is_null(self::$conn)) {
-            self::$conn = new \PDO('mysql:host=localhost:3308;dbname=escalamusical_db;charset=UTF8', 'root', 'euaquinanet');
+            include_once(__DIR__ . '/../../config.php');
+
+            self::$conn = new \PDO('mysql:host=' . $host . ';dbname=' . $db . ';charset=UTF8', $user, $pass);
         }
 
         return self::$conn;

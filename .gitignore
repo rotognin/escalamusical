@@ -4,3 +4,4 @@ error_log
 composer.*
 vendor/
 log.txt
+config.php
