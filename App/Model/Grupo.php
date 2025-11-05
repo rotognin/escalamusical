@@ -181,10 +181,11 @@ class Grupo
             SELECT 
                 e.escMusIDMusica, 
                 COUNT(e.escMusIDMusica) AS quantidade,
+                m.musID,
                 m.musNome, 
                 m.musArtista 
             FROM rodr3706_escalas.escalamusicas_tb e
-            LEFT JOIN rodr3706_escalas.musicas_tb m
+            INNER JOIN rodr3706_escalas.musicas_tb m
                 ON m.musID = e.escMusID 
             GROUP BY e.escMusIDMusica
             ORDER BY quantidade DESC
