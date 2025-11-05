@@ -4,6 +4,7 @@ Versão | Data | Detalhes
 :-------: | :-------: | :-------:
 1.0    | 28/09/2021 | Liberação em produção
 1.1    | 30/10/2025 | Botão para acesso a escalas anteriores
+1.2    | 05/11/2025 | Listagem de músicas mais tocadas (dashboard)
 
 Sistema para controle de escalas para uma banda, ministério de música, grupos de ensaio.
 
