@@ -174,4 +174,26 @@ class Grupo
 
         return $array;
     }
+
+    public static function musicasMaisTocadas()
+    {
+        $sql = <<<SQL
+            SELECT 
+                e.escMusIDMusica, 
+                COUNT(e.escMusIDMusica) AS quantidade,
+                m.musNome, 
+                m.musArtista 
+            FROM rodr3706_escalas.escalamusicas_tb e
+            LEFT JOIN rodr3706_escalas.musicas_tb m
+                ON m.musID = e.escMusID 
+            GROUP BY e.escMusIDMusica
+            ORDER BY quantidade DESC
+        SQL;
+
+        $conn = Conexao::getConexao()->prepare($sql);
+        $conn->execute();
+        $aMusicas = $conn->fetchAll();
+
+        return $aMusicas;
+    }
 }
