@@ -185,7 +185,7 @@ class Grupo
                 m.musNome, 
                 m.musArtista 
             FROM rodr3706_escalas.escalamusicas_tb e
-            INNER JOIN rodr3706_escalas.musicas_tb m
+            LEFT JOIN rodr3706_escalas.musicas_tb m
                 ON m.musID = e.escMusID 
             GROUP BY e.escMusIDMusica
             ORDER BY quantidade DESC
