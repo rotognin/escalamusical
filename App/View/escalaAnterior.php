@@ -42,6 +42,7 @@ $desc_mes_ano = Model\Grupo::$meses[$mes] . '/' . $ano;
                 echo '<tr>';
                 echo '<th>Música</th>';
                 echo '<th>Artista</th>';
+                echo '<th>Áudio Ensaio</th>';
                 echo '</tr>';
 
                 // Carregar as músicas para o grupo lido
@@ -59,6 +60,18 @@ $desc_mes_ano = Model\Grupo::$meses[$mes] . '/' . $ano;
                     }
 
                     echo '<td>' . $escMusica['musArtista'] . '</td>';
+
+                    if ($escMusica['musLinkAudio'] != '') {
+                        echo '<td>';
+                        echo '<audio controls referrerpolicy="no-referrer">';
+                        echo '<source src="audios/' . $escMusica['musLinkAudio'] . '" type="audio/mpeg">';
+                        echo 'Seu navegador não suporta áudio.';
+                        echo '</audio>';
+                        echo '</td>';
+                    } else {
+                        echo '<td></td>';
+                    }
+
                     echo '</tr>';
                 }
 
@@ -66,7 +79,7 @@ $desc_mes_ano = Model\Grupo::$meses[$mes] . '/' . $ano;
                 $escalaIntegrantes = Model\Escala::carregarIntegrantes($grupo['gruID']);
 
                 echo '<tr>';
-                echo '<td colspan="2"><p><b>Integrantes: </b> &nbsp;&nbsp;&nbsp;';
+                echo '<td colspan="3"><p><b>Integrantes: </b> &nbsp;&nbsp;&nbsp;';
                 $integrantes = '';
 
                 foreach ($escalaIntegrantes as $escIntegrante) {
@@ -89,7 +102,7 @@ $desc_mes_ano = Model\Grupo::$meses[$mes] . '/' . $ano;
                 echo '</tr>';
 
                 if (!empty($grupo['gruObservacoes'])) {
-                    echo '<tr><td colspan="2"><p><b>Observações: </b>';
+                    echo '<tr><td colspan="3"><p><b>Observações: </b>';
                     echo $grupo['gruObservacoes'];
                     echo '</p></td></tr>';
                 }

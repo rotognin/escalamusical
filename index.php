@@ -78,7 +78,7 @@ array_shift($meses);
                 echo '<tr>';
                 echo '<th>Música</th>';
                 echo '<th>Artista</th>';
-                echo '<th>Áudio</th>';
+                echo '<th>Áudio Ensaio</th>';
                 echo '</tr>';
 
                 // Carregar as músicas para o grupo lido
