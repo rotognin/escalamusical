@@ -44,14 +44,16 @@ class Escala
     public static function gravarMusica(array $escala)
     {
         $sql = 'INSERT INTO escalamusicas_tb (' .
-                'escMusIDGrupo, escMusIDMusica, escMusObservacao, escMusAtivo) ' .
-                'VALUES (:escMusIDGrupo, :escMusIDMusica, :escMusObservacao, :escMusAtivo)';
+            'escMusIDGrupo, escMusIDMusica, escMusObservacao, escMusAtivo) ' .
+            'VALUES (:escMusIDGrupo, :escMusIDMusica, :escMusObservacao, :escMusAtivo)';
         $conn = Conexao::getConexao()->prepare($sql);
-        return $conn->execute(array(
-            'escMusIDGrupo'    => $escala['escMusIDGrupo'],
-            'escMusIDMusica'   => $escala['escMusIDMusica'],
-            'escMusObservacao' => $escala['escMusObservacao'],
-            'escMusAtivo'      => $escala['escMusAtivo'])
+        return $conn->execute(
+            array(
+                'escMusIDGrupo'    => $escala['escMusIDGrupo'],
+                'escMusIDMusica'   => $escala['escMusIDMusica'],
+                'escMusObservacao' => $escala['escMusObservacao'],
+                'escMusAtivo'      => $escala['escMusAtivo']
+            )
         );
     }
 
@@ -62,7 +64,7 @@ class Escala
      */
     public static function excluirMusicas(int $gruID)
     {
-        if (!is_numeric($gruID) || $gruID == 0){
+        if (!is_numeric($gruID) || $gruID == 0) {
             return false;
         }
 
@@ -76,7 +78,7 @@ class Escala
 
     public static function excluirIntegrantes(int $gruID)
     {
-        if (!is_numeric($gruID) || $gruID == 0){
+        if (!is_numeric($gruID) || $gruID == 0) {
             return false;
         }
 
@@ -94,14 +96,16 @@ class Escala
     public static function gravarIntegrante(array $escala)
     {
         $sql = 'INSERT INTO escalaintegrantes_tb (' .
-                'escIntIDGrupo, escIntIDIntegrante, escIntObservacao, escIntAtivo) ' .
-                'VALUES (:escIntIDGrupo, :escIntIDIntegrante, :escIntObservacao, :escIntAtivo)';
+            'escIntIDGrupo, escIntIDIntegrante, escIntObservacao, escIntAtivo) ' .
+            'VALUES (:escIntIDGrupo, :escIntIDIntegrante, :escIntObservacao, :escIntAtivo)';
         $conn = Conexao::getConexao()->prepare($sql);
-        return $conn->execute(array(
-            'escIntIDGrupo'      => $escala['escIntIDGrupo'],
-            'escIntIDIntegrante' => $escala['escIntIDIntegrante'],
-            'escIntObservacao'   => $escala['escIntObservacao'],
-            'escIntAtivo'        => $escala['escIntAtivo'])
+        return $conn->execute(
+            array(
+                'escIntIDGrupo'      => $escala['escIntIDGrupo'],
+                'escIntIDIntegrante' => $escala['escIntIDIntegrante'],
+                'escIntObservacao'   => $escala['escIntObservacao'],
+                'escIntAtivo'        => $escala['escIntAtivo']
+            )
         );
     }
 
@@ -111,10 +115,10 @@ class Escala
     public static function carregarMusicas(int $escMusIDGrupo)
     {
         $sql = 'SELECT e.escMusID, e.escMusIDGrupo, e.escMusIDMusica, e.escMusObservacao, ' .
-               'e.escMusAtivo, m.musNome, m.musArtista, m.musLink, m.musDescricao ' .
-               'FROM escalamusicas_tb e ' .
-               'LEFT JOIN musicas_tb m ON e.escMusIDMusica = m.musID ' . 
-               'WHERE escMusIDGrupo = :escMusIDGrupo';
+            'e.escMusAtivo, m.musNome, m.musArtista, m.musLink, m.musDescricao, m.musLinkAudio ' .
+            'FROM escalamusicas_tb e ' .
+            'LEFT JOIN musicas_tb m ON e.escMusIDMusica = m.musID ' .
+            'WHERE escMusIDGrupo = :escMusIDGrupo';
         $conn = Conexao::getConexao()->prepare($sql);
         $conn->bindValue('escMusIDGrupo', $escMusIDGrupo, \PDO::PARAM_INT);
         $conn->execute();
@@ -129,10 +133,10 @@ class Escala
     public static function carregarIntegrantes(int $escIntIDGrupo)
     {
         $sql = 'SELECT e.escIntID, e.escIntIDGrupo, e.escIntIDIntegrante, e.escIntObservacao, ' .
-               'i.intNome, i.intContato' . 
-               ' FROM escalaintegrantes_tb e ' .
-               'LEFT JOIN integrantes_tb i ON e.escIntIDIntegrante = i.intID ' . 
-               'WHERE escIntIDGrupo = :escIntIDGrupo';
+            'i.intNome, i.intContato' .
+            ' FROM escalaintegrantes_tb e ' .
+            'LEFT JOIN integrantes_tb i ON e.escIntIDIntegrante = i.intID ' .
+            'WHERE escIntIDGrupo = :escIntIDGrupo';
         $conn = Conexao::getConexao()->prepare($sql);
         $conn->bindValue('escIntIDGrupo', $escIntIDGrupo, \PDO::PARAM_INT);
         $conn->execute();

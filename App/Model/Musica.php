@@ -19,6 +19,7 @@ class Musica
             'musNome'      => '',
             'musArtista'   => '',
             'musLink'      => '',
+            'musLinkAudio' => '',
             'musAtivo'     => 1,
             'musDescricao' => '',
             'musCategoria' => 0
@@ -27,7 +28,7 @@ class Musica
 
     public static function validar(array $musica)
     {
-        if ($musica['musNome'] == ''){
+        if ($musica['musNome'] == '') {
             $_SESSION['mensagem'] = 'O nome da música deve ser preenchido.';
             return false;
         }
@@ -41,26 +42,29 @@ class Musica
     public static function gravar(array $musica)
     {
         $sql = 'INSERT INTO musicas_tb (' .
-                'musNome, musArtista, musLink, musAtivo, musDescricao, musCategoria) ' .
-                'VALUES (:musNome, :musArtista, :musLink, :musAtivo, :musDescricao, :musCategoria)';
+            'musNome, musArtista, musLink, musAtivo, musDescricao, musCategoria, musLinkAudio) ' .
+            'VALUES (:musNome, :musArtista, :musLink, :musAtivo, :musDescricao, :musCategoria, :musLinkAudio)';
         $conn = Conexao::getConexao()->prepare($sql);
-        return $conn->execute(array(
-            'musNome'      => $musica['musNome'],
-            'musArtista'   => $musica['musArtista'],
-            'musLink'      => $musica['musLink'],
-            'musAtivo'     => $musica['musAtivo'],
-            'musDescricao' => $musica['musDescricao'],
-            'musCategoria' => $musica['musCategoria'])
+        return $conn->execute(
+            array(
+                'musNome'      => $musica['musNome'],
+                'musArtista'   => $musica['musArtista'],
+                'musLink'      => $musica['musLink'],
+                'musAtivo'     => $musica['musAtivo'],
+                'musDescricao' => $musica['musDescricao'],
+                'musCategoria' => $musica['musCategoria'],
+                'musLinkAudio' => $musica['musLinkAudio']
+            )
         );
     }
 
     public static function atualizar(array $musica)
     {
         $sql = 'UPDATE musicas_tb SET ' .
-                'musNome = :musNome, musArtista = :musArtista, ' . 
-                'musLink = :musLink, musAtivo = :musAtivo, ' . 
-                'musDescricao = :musDescricao, musCategoria = :musCategoria ' .
-                'WHERE musID = :musID';
+            'musNome = :musNome, musArtista = :musArtista, ' .
+            'musLink = :musLink, musAtivo = :musAtivo, ' .
+            'musDescricao = :musDescricao, musCategoria = :musCategoria, musLinkAudio = :musLinkAudio ' .
+            'WHERE musID = :musID';
         $conn = Conexao::getConexao()->prepare($sql);
         return $conn->execute(array(
             'musNome'      => $musica['musNome'],
@@ -69,6 +73,7 @@ class Musica
             'musAtivo'     => $musica['musAtivo'],
             'musDescricao' => $musica['musDescricao'],
             'musCategoria' => $musica['musCategoria'],
+            'musLinkAudio' => $musica['musLinkAudio'],
             'musID'        => $musica['musID']
         ));
     }
@@ -94,13 +99,13 @@ class Musica
     {
         $sql = 'SELECT * FROM musicas_tb ';
 
-        if (!$bTodas){
+        if (!$bTodas) {
             $sql .= 'WHERE musAtivo = :musAtivo ORDER BY musNome';
         }
 
         $conn = Conexao::getConexao()->prepare($sql);
 
-        if (!$bTodas){
+        if (!$bTodas) {
             $conn->bindValue('musAtivo', $musAtivo, \PDO::PARAM_INT);
         }
 
@@ -113,8 +118,7 @@ class Musica
         $aMusica = self::getArray();
         $campos = '';
 
-        foreach ($aMusica as $campo => $valor)
-        {
+        foreach ($aMusica as $campo => $valor) {
             $campos .= 'm.' . $campo . ', ';
         }
 
@@ -126,7 +130,7 @@ class Musica
         }
 
         $sql .= 'ORDER BY m.musCategoria ASC';
-        
+
         //Log::gravar($sql);
 
         $conn = Conexao::getConexao()->prepare($sql);

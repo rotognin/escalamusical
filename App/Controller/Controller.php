@@ -17,6 +17,7 @@ class Controller
         $usuario = Model\Usuario::verificarLogin($post['login'], $post['senha']);
 
         if (!$usuario) {
+            sleep(2);
             $_SESSION['mensagem'] = 'Usuário ou senha inválidos.';
             self::homeAction();
         }

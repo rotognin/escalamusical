@@ -67,10 +67,18 @@ array_shift($meses);
             foreach ($grupos as $grupo) {
                 echo '<div class="w3-container w3-white">';
                 echo '<h3 class="w3-light-blue">' . $grupo['gruDescricao'] . '</h3>';
+
+                /*
+                if ($grupo['gruObservacoes'] != '') {
+                    echo '<p>' . $grupo['gruObservacoes'] . '</p>';
+                }
+                */
+
                 echo '<table class="w3-table w3-striped w3-bordered">';
                 echo '<tr>';
                 echo '<th>Música</th>';
                 echo '<th>Artista</th>';
+                echo '<th>Áudio</th>';
                 echo '</tr>';
 
                 // Carregar as músicas para o grupo lido
@@ -88,6 +96,18 @@ array_shift($meses);
                     }
 
                     echo '<td>' . $escMusica['musArtista'] . '</td>';
+
+                    if ($escMusica['musLinkAudio'] != '') {
+                        echo '<td>';
+                        echo '<audio controls referrerpolicy="no-referrer">';
+                        echo '<source src="audios/' . $escMusica['musLinkAudio'] . '" type="audio/mpeg">';
+                        echo 'Seu navegador não suporta áudio.';
+                        echo '</audio>';
+                        echo '</td>';
+                    } else {
+                        echo '<td></td>';
+                    }
+
                     echo '</tr>';
                 }
 
@@ -95,7 +115,7 @@ array_shift($meses);
                 $escalaIntegrantes = Model\Escala::carregarIntegrantes($grupo['gruID']);
 
                 echo '<tr>';
-                echo '<td colspan="2"><p><b>Integrantes: </b> &nbsp;&nbsp;&nbsp;';
+                echo '<td colspan="3"><p><b>Integrantes: </b> &nbsp;&nbsp;&nbsp;';
                 $integrantes = '';
 
                 foreach ($escalaIntegrantes as $escIntegrante) {
@@ -118,7 +138,7 @@ array_shift($meses);
                 echo '</tr>';
 
                 if (!empty($grupo['gruObservacoes'])) {
-                    echo '<tr><td colspan="2"><p><b>Observações: </b>';
+                    echo '<tr><td colspan="3"><p><b>Observações: </b>';
                     echo $grupo['gruObservacoes'];
                     echo '</p></td></tr>';
                 }
