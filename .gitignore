@@ -5,3 +5,4 @@ composer.*
 vendor/
 log.txt
 config.php
+audios/
