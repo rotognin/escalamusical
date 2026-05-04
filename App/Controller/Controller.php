@@ -63,6 +63,11 @@ class Controller
         self::viewAction('musicas');
     }
 
+    public static function ensaioAction(array $post, array $get)
+    {
+        self::viewAction('ensaio', 'gruID=' . $get['gruid']);
+    }
+
     public static function escalaAction(array $post, array $get)
     {
         // Acessar as escalas anteriores

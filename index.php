@@ -68,17 +68,11 @@ array_shift($meses);
                 echo '<div class="w3-container w3-white">';
                 echo '<h3 class="w3-light-blue">' . $grupo['gruDescricao'] . '</h3>';
 
-                /*
-                if ($grupo['gruObservacoes'] != '') {
-                    echo '<p>' . $grupo['gruObservacoes'] . '</p>';
-                }
-                */
-
                 echo '<table class="w3-table w3-striped w3-bordered">';
                 echo '<tr>';
                 echo '<th>Música</th>';
                 echo '<th>Artista</th>';
-                echo '<th>Áudio Ensaio</th>';
+                echo '<th>Áudio Ensaio &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="principal.php?action=ensaio&gruid=' . $grupo['gruID'] . '" class="w3-button w3-indigo w3-sans-serif w3-padding-small">Áudio completo do Ensaio</a></th>';
                 echo '</tr>';
 
                 // Carregar as músicas para o grupo lido
