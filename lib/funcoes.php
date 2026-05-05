@@ -20,8 +20,12 @@ function aspas(string $valor)
 /**
  * Recebe o campo Data do banco e o formata para DD/MM/AAAA
  */
-function ajustarData(string $dataHoraOrigem)
+function ajustarData(mixed $dataHoraOrigem)
 {
+    if (!$dataHoraOrigem || $dataHoraOrigem == '' || $dataHoraOrigem == null) {
+        return '';
+    }
+
     $dataHora = explode(' ', $dataHoraOrigem);
     $data     = explode('-', $dataHora[0]);
     return $data[2] . '/' . $data[1] . '/' . $data[0];

@@ -1,0 +1,81 @@
+<div id="player">
+    <button id="btnPlay">Play</button>
+    <button id="btnStop">Stop</button>
+    <button id="retro1m">-1 min</button>
+    <button id="retro15s">-15s</button>
+    <button id="avanca15s">+15s</button>
+    <button id="avanca1m">+1 min</button>
+
+    <br><br>
+    <input type="range" id="seekbar" value="0" step="0.1" style="width: 500px;">
+    <div id="tempo">0:00 / 0:00</div>
+    <div id="status">Carregando...</div>
+
+    <br>
+    <div class="faixa">
+        <label>Bateria</label>
+        <input type="checkbox" class="mute" data-track="0" checked>
+        <input type="range" class="volume" data-track="0" min="0" max="1" step="0.01" value="1">
+        <span class="vol-label">100%</span>
+    </div>
+    <div class="faixa">
+        <label>Baixo</label>
+        <input type="checkbox" class="mute" data-track="1" checked>
+        <input type="range" class="volume" data-track="1" min="0" max="1" step="0.01" value="1">
+        <span class="vol-label">100%</span>
+    </div>
+    <div class="faixa">
+        <label>Violão</label>
+        <input type="checkbox" class="mute" data-track="2" checked>
+        <input type="range" class="volume" data-track="2" min="0" max="1" step="0.01" value="1">
+        <span class="vol-label">100%</span>
+    </div>
+    <div class="faixa">
+        <label>Voz</label>
+        <input type="checkbox" class="mute" data-track="3" checked>
+        <input type="range" class="volume" data-track="3" min="0" max="1" step="0.01" value="1">
+        <span class="vol-label">100%</span>
+    </div>
+    <div class="faixa">
+        <label>Backing</label>
+        <input type="checkbox" class="mute" data-track="4" checked>
+        <input type="range" class="volume" data-track="4" min="0" max="1" step="0.01" value="1">
+        <span class="vol-label">100%</span>
+    </div>
+</div>
+
+<style>
+    #player {
+        font-family: sans-serif;
+        padding: 20px;
+    }
+
+    .faixa {
+        margin: 10px 0;
+    }
+
+    .faixa label {
+        display: inline-block;
+        width: 80px;
+    }
+
+    .volume {
+        width: 200px;
+        vertical-align: middle;
+    }
+
+    .vol-label {
+        margin-left: 10px;
+        font-size: 12px;
+        color: #666;
+    }
+
+    button {
+        margin: 2px;
+        padding: 8px 12px;
+    }
+
+    #seekbar {
+        margin: 10px 0;
+    }
+</style>

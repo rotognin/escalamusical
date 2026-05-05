@@ -1,0 +1,89 @@
+<button id="carregar">1. Carregar áudios</button>
+<button id="tocar" disabled>2. Tocar os 5 juntos</button>
+<button id="parar" disabled>3. Parar tudo</button>
+
+<div id="controles"></div>
+
+<script>
+    let audioCtx;
+    let buffers = [];
+    let sourcesAtivas = [];
+    const urls = [
+        '../audios/ensaios/teste/musica1.mp3',
+        '../audios/ensaios/teste/musica2.mp3',
+        '../audios/ensaios/teste/musica3.mp3',
+        '../audios/ensaios/teste/musica4.mp3',
+        '../audios/ensaios/teste/musica5.mp3'
+    ];
+
+    // 1. Criar AudioContext só depois de clique do usuário
+    document.getElementById('carregar').onclick = async () => {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+        // Carrega todos os áudios em paralelo
+        const promessas = urls.map(async (url, i) => {
+            const res = await fetch(url);
+            const arrayBuffer = await res.arrayBuffer();
+            buffers[i] = await audioCtx.decodeAudioData(arrayBuffer);
+
+            // Cria slider de volume pra cada faixa
+            criarControleVolume(i, url);
+        });
+
+        await Promise.all(promessas);
+        document.getElementById('tocar').disabled = false;
+        document.getElementById('carregar').disabled = true;
+    };
+
+    // 2. Toca todos sincronizados
+    document.getElementById('tocar').onclick = () => {
+        pararTodos(); // garante que não sobreponha
+
+        const agora = audioCtx.currentTime + 0.1; // pequeno delay pra agendar
+
+        buffers.forEach((buffer, i) => {
+            const source = audioCtx.createBufferSource();
+            const gainNode = audioCtx.createGain();
+
+            source.buffer = buffer;
+            gainNode.gain.value = document.getElementById(`vol${i}`).value;
+
+            source.connect(gainNode).connect(audioCtx.destination);
+            source.start(agora); // todos começam no mesmo timestamp
+
+            sourcesAtivas.push({ source, gainNode, index: i });
+        });
+
+        document.getElementById('parar').disabled = false;
+    };
+
+    // 3. Para tudo
+    function pararTodos() {
+        sourcesAtivas.forEach(obj => {
+            try { obj.source.stop(); } catch (e) { }
+        });
+        sourcesAtivas = [];
+    }
+
+    document.getElementById('parar').onclick = () => {
+        pararTodos();
+        document.getElementById('parar').disabled = true;
+    };
+
+    // Cria sliders de volume individuais
+    function criarControleVolume(i, nome) {
+        const div = document.createElement('div');
+        div.innerHTML = `
+            <label>Faixa ${i + 1}: ${nome}
+            <input type="range" id="vol${i}" min="0" max="1" step="0.01" value="0.8">
+            </label>
+        `;
+        document.getElementById('controles').appendChild(div);
+
+        // Atualiza volume em tempo real
+        document.getElementById(`vol${i}`).oninput = (e) => {
+            const sourceObj = sourcesAtivas.find(s => s.index === i);
+            if (sourceObj) sourceObj.gainNode.gain.value = e.target.value;
+        };
+    }
+</script>

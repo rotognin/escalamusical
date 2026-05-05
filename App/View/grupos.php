@@ -10,8 +10,7 @@ use App\Model as Model;
 
 $grupos = Model\Grupo::listar();
 
-if (!isset($_SESSION['mensagem']))
-{
+if (!isset($_SESSION['mensagem'])) {
     $_SESSION['mensagem'] = '';
 }
 
@@ -23,6 +22,7 @@ $_SESSION['mensagem'] = '';
 <!DOCTYPE html>
 <html>
 <?php include 'html' . DIRECTORY_SEPARATOR . 'head.php'; ?>
+
 <body>
     <div class="w3-container w3-card-4">
         <h3>Lista de Grupos</h3>
@@ -40,29 +40,32 @@ $_SESSION['mensagem'] = '';
                 <th>Data/Hora</th>
                 <th>Observações</th>
                 <th>Situação</th>
+                <th>Data Ensaio</th>
                 <th>Ação</th>
             </tr>
 
             <?php
-                foreach ($grupos as $grupo)
-                {
-                    echo '<tr>';
-                        echo '<td>' . $grupo['gruID'] . '</td>';
-                        echo '<td>' . $grupo['gruDescricao'] . '</td>';
-                        $gruDataHora = $grupo['gruData'] . ' ' . $grupo['gruHora'];
-                        echo '<td>' . ajustarData($gruDataHora) . ' ' . ajustarHora($gruDataHora) . '</td>';                        echo '<td>' . $grupo['gruObservacoes'] . '</td>';
-                        echo '<td>' . Model\Grupo::getStatus($grupo['gruStatus']) . '</td>';
-                        echo '<td>';
-                            echo '<form method="post" action="principal.php?control=grupo&action=cadGrupo">';
-                                echo '<input type="hidden" name="gruID" value="' . $grupo['gruID'] . '">';
-                                echo '<input type="submit" value="Editar" class="w3-button w3-small w3-blue">';
-                            echo '</form>';
-                        echo '</td>';
-                    echo '</tr>';
-                }
+            foreach ($grupos as $grupo) {
+                echo '<tr>';
+                echo '<td>' . $grupo['gruID'] . '</td>';
+                echo '<td>' . $grupo['gruDescricao'] . '</td>';
+                $gruDataHora = $grupo['gruData'] . ' ' . $grupo['gruHora'];
+                echo '<td>' . ajustarData($gruDataHora) . ' ' . ajustarHora($gruDataHora) . '</td>';
+                echo '<td>' . $grupo['gruObservacoes'] . '</td>';
+                echo '<td>' . Model\Grupo::getStatus($grupo['gruStatus']) . '</td>';
+                echo '<td>' . ajustarData($grupo['gruDataEnsaio']) . '</td>';
+                echo '<td>';
+                echo '<form method="post" action="principal.php?control=grupo&action=cadGrupo">';
+                echo '<input type="hidden" name="gruID" value="' . $grupo['gruID'] . '">';
+                echo '<input type="submit" value="Editar" class="w3-button w3-small w3-blue">';
+                echo '</form>';
+                echo '</td>';
+                echo '</tr>';
+            }
             ?>
         </table>
         <br>
     </div>
 </body>
+
 </html>

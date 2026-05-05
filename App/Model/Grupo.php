@@ -35,7 +35,8 @@ class Grupo
             'gruObservacoes' => '',
             'gruData'        => '',
             'gruHora'        => '',
-            'gruStatus'      => 1
+            'gruStatus'      => 1,
+            'gruDataEnsaio'  => ''
         );
     }
 
@@ -52,8 +53,8 @@ class Grupo
     public static function gravar(array $grupo)
     {
         $sql = 'INSERT INTO grupos_tb (' .
-            'gruDescricao, gruObservacoes, gruData, gruHora, gruStatus) ' .
-            'VALUES (:gruDescricao, :gruObservacoes, :gruData, :gruHora, :gruStatus)';
+            'gruDescricao, gruObservacoes, gruData, gruHora, gruStatus, gruDataEnsaio) ' .
+            'VALUES (:gruDescricao, :gruObservacoes, :gruData, :gruHora, :gruStatus, :gruDataEnsaio)';
         $conn = Conexao::getConexao()->prepare($sql);
         return $conn->execute(
             array(
@@ -61,7 +62,8 @@ class Grupo
                 'gruObservacoes' => $grupo['gruObservacoes'],
                 'gruData'        => $grupo['gruData'],
                 'gruHora'        => $grupo['gruHora'],
-                'gruStatus'      => $grupo['gruStatus']
+                'gruStatus'      => $grupo['gruStatus'],
+                'gruDataEnsaio'  => $grupo['gruDataEnsaio']
             )
         );
     }
@@ -71,7 +73,7 @@ class Grupo
         $sql = 'UPDATE grupos_tb SET ' .
             'gruDescricao = :gruDescricao, gruObservacoes = :gruObservacoes, ' .
             'gruData = :gruData, gruHora = :gruHora, ' .
-            'gruStatus = :gruStatus ' .
+            'gruStatus = :gruStatus, gruDataEnsaio = :gruDataEnsaio ' .
             'WHERE gruID = :gruID';
         $conn = Conexao::getConexao()->prepare($sql);
         return $conn->execute(array(
@@ -80,7 +82,8 @@ class Grupo
             'gruData'        => $grupo['gruData'],
             'gruHora'        => $grupo['gruHora'],
             'gruStatus'      => $grupo['gruStatus'],
-            'gruID'          => $grupo['gruID']
+            'gruID'          => $grupo['gruID'],
+            'gruDataEnsaio'  => $grupo['gruDataEnsaio']
         ));
     }
 
