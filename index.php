@@ -1,14 +1,7 @@
 <?php
 
-// localhost:8047
-
 session_start();
 
-// Ao cair nessa página, se o usuário estiver logado, irá ser deslogado do sistema.
-/*
-$_SESSION['usuID'] = 0;
-$_SESSION['usuNome'] = '';
-*/
 $_SESSION['dir'] = __DIR__ . DIRECTORY_SEPARATOR;
 
 if (!isset($_SESSION['mensagem'])) {
@@ -67,12 +60,6 @@ array_shift($meses);
             foreach ($grupos as $grupo) {
                 echo '<div class="w3-container w3-white">';
                 echo '<h3 class="w3-light-blue">' . $grupo['gruDescricao'] . '</h3>';
-
-                $link_ensaio = '';
-
-                if (($grupo['gruDataEnsaio'] ?? '') != '') {
-                    $link_ensaio = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="principal.php?action=ensaio&gruid=' . $grupo['gruID'] . '" class="w3-button w3-indigo w3-sans-serif w3-padding-small">Áudio completo do Ensaio</a>';
-                }
 
                 echo '<table class="w3-table w3-striped w3-bordered">';
                 echo '<tr>';
