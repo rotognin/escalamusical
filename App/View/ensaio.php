@@ -85,13 +85,14 @@ if (empty($arquivos)) {
 
     $nro_faixa = 0;
     $add_audios = 'const arquivos = [';
+    $volumes = '[';
 
     foreach ($arquivos as $arq) {
         $nome_arquivo = pathinfo($arq, PATHINFO_FILENAME);
 
         $html_play .= <<<HTML
             <div class="faixa">
-                <label>{$nome_arquivo}</label>
+                <label>{$nome_arquivo}</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                 <input type="checkbox" class="mute" data-track="{$nro_faixa}" checked>
                 <input type="range" class="volume" data-track="{$nro_faixa}" min="0" max="1" step="0.01" value="1">
                 <span class="vol-label">100%</span>
@@ -101,9 +102,12 @@ if (empty($arquivos)) {
 
         // Adicionar o áudio
         $add_audios .= '"' . $arq . '",';
+        $volumes .= '1, ';
 
         $nro_faixa++;
     }
+
+    $volumes = substr($volumes, 0, -2) . ']';
 
     $add_audios .= '];';
 
@@ -113,7 +117,7 @@ if (empty($arquivos)) {
         const audioCtx = new AudioContext();
         let elements = [];
         let gainNodes = [];
-        let volumes = [1, 1, 1, 1, 1];
+        let volumes = {$volumes};
         let playing = false;
         let duration = 0;
         let driftCheckInterval = null;
