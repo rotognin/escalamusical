@@ -189,7 +189,7 @@ class Grupo
                 m.musArtista 
             FROM rodr3706_escalas.escalamusicas_tb e
             LEFT JOIN rodr3706_escalas.musicas_tb m
-                ON m.musID = e.escMusID 
+                ON m.musID = e.escMusIDMusica
             GROUP BY e.escMusIDMusica
             ORDER BY quantidade DESC
         SQL;
