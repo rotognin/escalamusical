@@ -58,8 +58,14 @@ array_shift($meses);
         <?php
         if (!empty($grupos)) {
             foreach ($grupos as $grupo) {
+                $info_grupo = '';
+
+                if ($grupo['gruObservacoes'] != '') {
+                    $info_grupo = '<small class="w3-margin-left w3-margin-bottom">' . $grupo['gruObservacoes'] . '</small>';
+                }
+
                 echo '<div class="w3-container w3-white w3-margin-top">';
-                echo '<div class="w3-light-blue w3-padding-small"><h3>' . $grupo['gruDescricao'] . '</h3><small>' . $grupo['gruObservacoes'] . '</small></div>';
+                echo '<div class="w3-light-blue"><h3 class="w3-margin-left">' . $grupo['gruDescricao'] . '</h3>' . $info_grupo . '</div>';
 
                 echo '<table class="w3-table w3-striped w3-bordered">';
                 echo '<tr>';
