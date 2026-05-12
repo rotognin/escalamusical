@@ -33,7 +33,7 @@ array_shift($meses);
         </header>
         <br>
         <div class="w3-container">
-            <a class="w3-button w3-indigo" href="principal.php?action=musicas">Lista de Músicas.</a>
+            <a class="w3-button w3-indigo" href="principal.php?action=musicas">Lista de Músicas</a>
 
             <!-- acesso a escalas anteriores -->
             <?php
