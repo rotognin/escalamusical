@@ -1,4 +1,4 @@
-/* W3.CSS 5.02 March 31 2025 by Jan Egil and Borge Refsnes */
+/* W3.CSS 5.01 March 11 2026 by Jan Egil and Borge Refsnes */
 html {
     box-sizing: border-box
 }
@@ -1721,7 +1721,7 @@ a {
 }
 
 .w3-cobalt,
-w3-hover-cobalt:hover {
+.w3-hover-cobalt:hover {
     color: #fff !important;
     background-color: #0050ef !important
 }
