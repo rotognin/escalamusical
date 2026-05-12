@@ -73,14 +73,20 @@ array_shift($meses);
 
                 foreach ($escalaMusicas as $escMusica) {
                     echo '<tr>';
+                    echo '<td>';
                     if (empty($escMusica['musLink'])) {
-                        echo '<td>' . $escMusica['musNome'] . '</td>';
+                        echo $escMusica['musNome'];
                     } else {
-                        echo '<td>';
                         echo '<a href="' . $escMusica['musLink'] . '" target="_blank">';
                         echo $escMusica['musNome'];
-                        echo '</a></td>';
+                        echo '</a>';
                     }
+
+                    if (!empty($escMusica['musDescricao'])) {
+                        echo '<br><small>' . $escMusica['musDescricao'] . '</small>';
+                    }
+
+                    echo '</td>';
 
                     echo '<td>' . $escMusica['musArtista'] . '</td>';
 
