@@ -2,7 +2,7 @@
 
 namespace App\Model;
 
-class Grupo
+class Grupo extends DAO
 {
 
     private static $status = array(
@@ -52,6 +52,14 @@ class Grupo
 
     public static function gravar(array $grupo)
     {
+        if ($grupo['gruDataEnsaio'] == '') {
+            unset($grupo['gruDataEnsaio']);
+        }
+
+        $setInsert = self::prepararSetInsert($grupo);
+        $setValues = self::prepararSetValues($grupo);
+        $arrayInsert = self::prepararArray($grupo);
+
         $sql = 'INSERT INTO grupos_tb (' .
             'gruDescricao, gruObservacoes, gruData, gruHora, gruStatus, gruDataEnsaio) ' .
             'VALUES (:gruDescricao, :gruObservacoes, :gruData, :gruHora, :gruStatus, :gruDataEnsaio)';
@@ -70,21 +78,21 @@ class Grupo
 
     public static function atualizar(array $grupo)
     {
-        $sql = 'UPDATE grupos_tb SET ' .
-            'gruDescricao = :gruDescricao, gruObservacoes = :gruObservacoes, ' .
-            'gruData = :gruData, gruHora = :gruHora, ' .
-            'gruStatus = :gruStatus, gruDataEnsaio = :gruDataEnsaio ' .
+        $gruID = $grupo['gruID'];
+        unset($grupo['gruID']);
+
+        if ($grupo['gruDataEnsaio'] == '') {
+            unset($grupo['gruDataEnsaio']);
+        }
+
+        $setUpdate = self::prepararSetUpdate($grupo);
+        $arrayUpdate = self::prepararArray($grupo);
+
+        $sql = 'UPDATE grupos_tb SET ' . $setUpdate .
             'WHERE gruID = :gruID';
         $conn = Conexao::getConexao()->prepare($sql);
-        return $conn->execute(array(
-            'gruDescricao'   => $grupo['gruDescricao'],
-            'gruObservacoes' => $grupo['gruObservacoes'],
-            'gruData'        => $grupo['gruData'],
-            'gruHora'        => $grupo['gruHora'],
-            'gruStatus'      => $grupo['gruStatus'],
-            'gruID'          => $grupo['gruID'],
-            'gruDataEnsaio'  => $grupo['gruDataEnsaio']
-        ));
+
+        return $conn->execute($arrayUpdate + ['gruID' => $gruID]);
     }
 
     public static function carregar(int $gruID)

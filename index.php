@@ -58,14 +58,14 @@ array_shift($meses);
         <?php
         if (!empty($grupos)) {
             foreach ($grupos as $grupo) {
-                echo '<div class="w3-container w3-white">';
-                echo '<h3 class="w3-light-blue">' . $grupo['gruDescricao'] . '</h3>';
+                echo '<div class="w3-container w3-white w3-margin-top">';
+                echo '<div class="w3-light-blue w3-padding-small"><h3>' . $grupo['gruDescricao'] . '</h3><small>' . $grupo['gruObservacoes'] . '</small></div>';
 
                 echo '<table class="w3-table w3-striped w3-bordered">';
                 echo '<tr>';
                 echo '<th>Música</th>';
                 echo '<th>Artista</th>';
-                echo '<th>Áudio Ensaio ' . $link_ensaio . '</th>';
+                echo '<th>Áudio Ensaio</th>';
                 echo '</tr>';
 
                 // Carregar as músicas para o grupo lido
@@ -129,12 +129,6 @@ array_shift($meses);
 
                 echo '</p></td>';
                 echo '</tr>';
-
-                if (!empty($grupo['gruObservacoes'])) {
-                    echo '<tr><td colspan="3"><p><b>Observações: </b>';
-                    echo $grupo['gruObservacoes'];
-                    echo '</p></td></tr>';
-                }
 
                 echo '</table></div>';
             }
