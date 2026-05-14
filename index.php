@@ -30,7 +30,6 @@ array_shift($meses);
     <div>
         <header class="w3-container w3-blue w3-margin-top">
             <h3>Louvor IBaPark</h3>
-            <!--spam><button class="w3-button w3-green" onclick="trocarAparencia()">Trocar Aparência</button></spam-->
         </header>
         <br>
         <div class="w3-container">

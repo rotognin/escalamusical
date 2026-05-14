@@ -60,20 +60,10 @@ class Grupo extends DAO
         $setValues = self::prepararSetValues($grupo);
         $arrayInsert = self::prepararArray($grupo);
 
-        $sql = 'INSERT INTO grupos_tb (' .
-            'gruDescricao, gruObservacoes, gruData, gruHora, gruStatus, gruDataEnsaio) ' .
-            'VALUES (:gruDescricao, :gruObservacoes, :gruData, :gruHora, :gruStatus, :gruDataEnsaio)';
+        $sql = 'INSERT INTO grupos_tb (' . $setInsert . ') ' .
+            'VALUES (' . $setValues . ')';
         $conn = Conexao::getConexao()->prepare($sql);
-        return $conn->execute(
-            array(
-                'gruDescricao'   => $grupo['gruDescricao'],
-                'gruObservacoes' => $grupo['gruObservacoes'],
-                'gruData'        => $grupo['gruData'],
-                'gruHora'        => $grupo['gruHora'],
-                'gruStatus'      => $grupo['gruStatus'],
-                'gruDataEnsaio'  => $grupo['gruDataEnsaio']
-            )
-        );
+        return $conn->execute($arrayInsert);
     }
 
     public static function atualizar(array $grupo)
@@ -195,8 +185,8 @@ class Grupo extends DAO
                 m.musID,
                 m.musNome, 
                 m.musArtista 
-            FROM rodr3706_escalas.escalamusicas_tb e
-            LEFT JOIN rodr3706_escalas.musicas_tb m
+            FROM escalamusicas_tb e
+            LEFT JOIN musicas_tb m
                 ON m.musID = e.escMusIDMusica
             GROUP BY e.escMusIDMusica
             ORDER BY quantidade DESC

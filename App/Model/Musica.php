@@ -2,7 +2,7 @@
 
 namespace App\Model;
 
-class Musica
+class Musica extends DAO
 {
     private static $status = array(
         0 => 'Inativo',
@@ -41,41 +41,35 @@ class Musica
      */
     public static function gravar(array $musica)
     {
-        $sql = 'INSERT INTO musicas_tb (' .
-            'musNome, musArtista, musLink, musAtivo, musDescricao, musCategoria, musLinkAudio) ' .
-            'VALUES (:musNome, :musArtista, :musLink, :musAtivo, :musDescricao, :musCategoria, :musLinkAudio)';
+        $setInsert = self::prepararSetInsert($musica);
+        $setValues = self::prepararSetValues($musica);
+        $arrayInsert = self::prepararArray($musica);
+
+        $sql = <<<SQL
+            INSERT INTO musicas_tb ({$setInsert})
+            VALUES ({$setValues})
+        SQL;
+
         $conn = Conexao::getConexao()->prepare($sql);
-        return $conn->execute(
-            array(
-                'musNome'      => $musica['musNome'],
-                'musArtista'   => $musica['musArtista'],
-                'musLink'      => $musica['musLink'],
-                'musAtivo'     => $musica['musAtivo'],
-                'musDescricao' => $musica['musDescricao'],
-                'musCategoria' => $musica['musCategoria'],
-                'musLinkAudio' => $musica['musLinkAudio']
-            )
-        );
+        return $conn->execute($arrayInsert);
     }
 
     public static function atualizar(array $musica)
     {
-        $sql = 'UPDATE musicas_tb SET ' .
-            'musNome = :musNome, musArtista = :musArtista, ' .
-            'musLink = :musLink, musAtivo = :musAtivo, ' .
-            'musDescricao = :musDescricao, musCategoria = :musCategoria, musLinkAudio = :musLinkAudio ' .
-            'WHERE musID = :musID';
+        $musID = $musica['musID'];
+        unset($musica['musID']);
+
+        $setUpdate = self::prepararSetUpdate($musica);
+        $arrayUpdate = self::prepararArray($musica);
+
+        $sql = <<<SQL
+            UPDATE musicas_tb 
+            SET {$setUpdate}
+            WHERE musID = :musID
+        SQL;
+
         $conn = Conexao::getConexao()->prepare($sql);
-        return $conn->execute(array(
-            'musNome'      => $musica['musNome'],
-            'musArtista'   => $musica['musArtista'],
-            'musLink'      => $musica['musLink'],
-            'musAtivo'     => $musica['musAtivo'],
-            'musDescricao' => $musica['musDescricao'],
-            'musCategoria' => $musica['musCategoria'],
-            'musLinkAudio' => $musica['musLinkAudio'],
-            'musID'        => $musica['musID']
-        ));
+        return $conn->execute($arrayUpdate + ['musID' => $musID]);
     }
 
     /**
