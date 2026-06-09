@@ -61,7 +61,7 @@ array_shift($meses);
                 $info_grupo = '';
 
                 if ($grupo['gruObservacoes'] != '') {
-                    $info_grupo = '<small class="w3-margin-left w3-margin-bottom">' . $grupo['gruObservacoes'] . '</small>';
+                    $info_grupo = '<span class="w3-margin-left">' . $grupo['gruObservacoes'] . '</span>';
                 }
 
                 echo '<div class="w3-container w3-white w3-margin-top">';
