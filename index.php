@@ -65,7 +65,7 @@ array_shift($meses);
                 }
 
                 echo '<div class="w3-container w3-white w3-margin-top">';
-                echo '<div class="w3-light-blue"><h3 class="w3-margin-left">' . $grupo['gruDescricao'] . '</h3>' . $info_grupo . '</div>';
+                echo '<div class="w3-light-blue"><h3 class="w3-margin-left" style="margin-bottom:0px">' . $grupo['gruDescricao'] . '</h3>' . $info_grupo . '</div>';
 
                 echo '<table class="w3-table w3-striped w3-bordered">';
                 echo '<tr>';
